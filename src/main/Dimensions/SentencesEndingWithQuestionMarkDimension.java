@@ -1,5 +1,7 @@
 package main.Dimensions;
 
+import main.helpers.ExtractSentencesFromString;
+
 /**
  * SentencesEndingWithQuestionMarkDimension
  * 
@@ -19,9 +21,11 @@ public class SentencesEndingWithQuestionMarkDimension extends BaseDimension {
 			return 0;
 		}
 		
+		
+		
 		// Get the number of sentences
 		double result = 0;
-		for (String sentence : this.getInput ().split("[!?.:]+")) {
+		for (String sentence : ExtractSentencesFromString.getSentences(this.getInput ())) {
 			if (sentence.substring (sentence.length() - 1) == "?") {
 				result++;
 			}

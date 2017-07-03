@@ -1,5 +1,7 @@
 package main.Dimensions;
 
+import main.helpers.ExtractSentencesFromString;
+
 /**
  * WordsPerSentenceDimension
  * 
@@ -18,7 +20,7 @@ public class WordsPerSentenceDimension extends BaseDimension {
 		}
 		
 		// Get the number of sentences
-		double sentences = this.getInput ().split("[!?.:]+").length;
+		double sentences = ExtractSentencesFromString.getSentences(this.getInput ()).length; 
 		
 		
 		// Get the number of words
