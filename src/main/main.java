@@ -1,6 +1,9 @@
 package main;
 
 import main.Dimensions.*;
+import main.Dimensions.CharacterCountDimension.CommaCountDimension;
+import main.Dimensions.CharacterCountDimension.WordCountDimension;
+import main.Dimensions.SentencesEndingWithCharacterDimension.SentencesEndingWithQuestionMarkDimension;
 import main.Dimensions.WordsLongerThanNCharactersDimension.WordsLongerThan15Dimension;
 import main.Readers.FileReader;
 

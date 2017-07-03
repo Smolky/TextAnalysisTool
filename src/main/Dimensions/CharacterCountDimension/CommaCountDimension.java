@@ -1,4 +1,4 @@
-package main.Dimensions;
+package main.Dimensions.CharacterCountDimension;
 
 public class CommaCountDimension extends CharacterCountDimension {
 

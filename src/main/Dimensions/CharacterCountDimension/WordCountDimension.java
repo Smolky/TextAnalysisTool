@@ -1,4 +1,6 @@
-package main.Dimensions;
+package main.Dimensions.CharacterCountDimension;
+
+import main.Dimensions.BaseDimension;
 
 /**
  * Dimension

@@ -1,6 +1,17 @@
-package main.Dimensions;
+package main.Dimensions.CharacterCountDimension;
 
-public class CharacterCountDimension extends BaseDimension {
+import main.Dimensions.BaseDimension;
+
+/**
+ * CharacterCountDimension
+ * 
+ * This dimension counts the appareance of a set 
+ * of characers
+ * 
+ * @author José Antonio García Díaz
+ * @package TextAnalysis
+ */
+abstract public class CharacterCountDimension extends BaseDimension {
 	
 	public String character;
 	

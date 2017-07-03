@@ -1,5 +1,6 @@
-package main.Dimensions;
+package main.Dimensions.SentencesEndingWithCharacterDimension;
 
+import main.Dimensions.BaseDimension;
 import main.helpers.ExtractSentencesFromString;
 
 /**
