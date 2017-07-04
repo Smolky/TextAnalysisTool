@@ -5,6 +5,7 @@ import main.Dimensions.CompositeDimension;
 import main.Dimensions.DimensionInterface;
 import main.Dimensions.DimensionsContainer;
 import main.Dimensions.MatchingWordsFromDictionary;
+import main.Dimensions.NegationDimension;
 import main.Dimensions.PercentageWordsCapturedFromDictionary;
 import main.Dimensions.UniqueWordsDimension;
 import main.Dimensions.WordsPerSentenceDimension;
@@ -56,6 +57,7 @@ public class main {
 		Dictionary firstpersonpluralpronounsdictionary = new Dictionary ();
 		Dictionary secondpersonpronounsdictionary = new Dictionary ();
 		Dictionary thirdpersonpronounsdictionary = new Dictionary ();
+		Dictionary negationsdictionary = new Dictionary ();
 
 		
 		
@@ -66,6 +68,7 @@ public class main {
 			firstpersonpluralpronounsdictionary.loadFromFile ("assets/dictionaries/firstpersonpluralpronoums.txt");			
 			secondpersonpronounsdictionary.loadFromFile("assets/dictionaries/secondpersonpronoums.txt");
 			thirdpersonpronounsdictionary.loadFromFile("assets/dictionaries/thirdpersonpronoums.txt");
+			negationsdictionary.loadFromFile("assets/dictionaries/negations.txt");
 			
 			
 		} catch (Exception e) {
@@ -96,6 +99,12 @@ public class main {
 				new PronounsSecondPersonDimension (secondpersonpronounsdictionary),
 				new PronounsThirdPersonDimension (secondpersonpronounsdictionary)
 			))
+			
+			
+			// Assets and negations
+			.add (new NegationDimension (negationsdictionary))
+			
+			
 		;
 		
 		
