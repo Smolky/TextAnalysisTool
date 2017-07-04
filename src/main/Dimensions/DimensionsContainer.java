@@ -4,8 +4,17 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+
+/**
+ * DimensionsContainer
+ *
+ * @author José Antonio García Díaz
+ *
+ * @package TextAnalysis
+ */
 public class DimensionsContainer implements Iterable<DimensionInterface> {
 
+	/** List<DimensionInterface> bList */
 	protected List<DimensionInterface> bList = new ArrayList<DimensionInterface>();
 	
 	

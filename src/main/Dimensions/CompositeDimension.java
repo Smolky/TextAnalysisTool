@@ -1,6 +1,7 @@
 package main.Dimensions;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import main.Asset;
@@ -16,9 +17,16 @@ import main.helpers.ExtractSentencesFromString;
  *
  * @package TextAnalysis
  */
-abstract public class CompositeDimension extends BaseDimension {
+abstract public class CompositeDimension extends BaseDimension implements Iterable<DimensionInterface> {
 	
+	/** List<DimensionInterface> dimensions */
 	protected List<DimensionInterface> dimensions = new ArrayList<DimensionInterface>();
+	
+	
+	@Override
+	public Iterator<DimensionInterface> iterator() {
+		return this.dimensions.iterator();
+	}	
 	
 	
 	/**

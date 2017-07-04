@@ -1,6 +1,7 @@
 package main;
 
 
+import main.Dimensions.CompositeDimension;
 import main.Dimensions.DimensionInterface;
 import main.Dimensions.DimensionsContainer;
 import main.Dimensions.MatchingWordsFromDictionary;
@@ -9,10 +10,12 @@ import main.Dimensions.UniqueWordsDimension;
 import main.Dimensions.WordsPerSentenceDimension;
 import main.Dimensions.CharacterCountDimension.CommaCountDimension;
 import main.Dimensions.CharacterCountDimension.WordCountDimension;
+import main.Dimensions.PronounsDimension.PronounsDimension;
 import main.Dimensions.PronounsDimension.PronounsFirstPersonDimension;
 import main.Dimensions.PronounsDimension.PronounsFirstPersonPluralDimension;
 import main.Dimensions.PronounsDimension.PronounsFirstPersonSingularDimension;
 import main.Dimensions.PronounsDimension.PronounsSecondPersonDimension;
+import main.Dimensions.PronounsDimension.PronounsThirdPersonDimension;
 import main.Dimensions.SentencesEndingWithCharacterDimension.SentencesEndingWithQuestionMarkDimension;
 import main.Dimensions.WordsLongerThanNCharactersDimension.WordsLongerThan15Dimension;
 import main.Readers.FileReader;
@@ -52,6 +55,7 @@ public class main {
 		Dictionary firstpersonsingularpronounsdictionary = new Dictionary ();
 		Dictionary firstpersonpluralpronounsdictionary = new Dictionary ();
 		Dictionary secondpersonpronounsdictionary = new Dictionary ();
+		Dictionary thirdpersonpronounsdictionary = new Dictionary ();
 
 		
 		
@@ -61,6 +65,7 @@ public class main {
 			firstpersonsingularpronounsdictionary.loadFromFile ("assets/dictionaries/firstpersonsingularpronoums.txt");
 			firstpersonpluralpronounsdictionary.loadFromFile ("assets/dictionaries/firstpersonpluralpronoums.txt");			
 			secondpersonpronounsdictionary.loadFromFile("assets/dictionaries/secondpersonpronoums.txt");
+			thirdpersonpronounsdictionary.loadFromFile("assets/dictionaries/thirdpersonpronoums.txt");
 			
 			
 		} catch (Exception e) {
@@ -81,17 +86,16 @@ public class main {
 			.add (new PercentageWordsCapturedFromDictionary ())
 			.add (new MatchingWordsFromDictionary (fulldictionary))
 			
-			.add (new PronounsFirstPersonSingularDimension (firstpersonsingularpronounsdictionary))
-			.add (new PronounsFirstPersonPluralDimension (firstpersonpluralpronounsdictionary))
 			
-			.add (new PronounsFirstPersonDimension (
-				new PronounsFirstPersonSingularDimension (firstpersonsingularpronounsdictionary),
-				new PronounsFirstPersonPluralDimension (firstpersonpluralpronounsdictionary)
+			// PRonoums
+			.add (new PronounsDimension (
+				new PronounsFirstPersonDimension (
+					new PronounsFirstPersonSingularDimension (firstpersonsingularpronounsdictionary),
+					new PronounsFirstPersonPluralDimension (firstpersonpluralpronounsdictionary)
+				),
+				new PronounsSecondPersonDimension (secondpersonpronounsdictionary),
+				new PronounsThirdPersonDimension (secondpersonpronounsdictionary)
 			))
-			
-			.add (new PronounsSecondPersonDimension (secondpersonpronounsdictionary))
-			
-			
 		;
 		
 		
@@ -111,7 +115,7 @@ public class main {
 			}
 			
 			for (DimensionInterface dimension : dimensions) {
-				System.out.println(dimension.getDimensionKey () + " " + dimension.process());	
+				printStats (0, dimension);
 			}
 			
 
@@ -121,4 +125,32 @@ public class main {
 			System.out.println (e);
 		}
 	}
+	
+	
+	
+	/**
+	 * printStats
+	 * 
+	 * This function helps to print the herarchy of the dimensions
+	 * with proper indentation level
+	 * 
+	 * @param level
+	 * @param dimension
+	 */
+	public static void printStats (int level, DimensionInterface dimension) {
+		
+		// Create indentation
+		String indent = new String (new char[level * 4]).replace('\0', ' ');
+		
+		
+		// Print!
+		System.out.println(indent + dimension.getDimensionKey () + " " + dimension.process());
+		
+		if (dimension instanceof CompositeDimension) {
+			for (DimensionInterface subdimension : (CompositeDimension) dimension) {
+				printStats (level + 1, subdimension);
+			}
+		}
+	}
+	
 }
