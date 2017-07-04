@@ -1,6 +1,7 @@
 package main.Dimensions.CharacterCountDimension;
 
 import main.Dimensions.BaseDimension;
+import main.helpers.ExtractWordsFromString;
 
 /**
  * Dimension
@@ -10,6 +11,16 @@ import main.Dimensions.BaseDimension;
  * @package TextAnalysis
  */
 public class WordCountDimension extends BaseDimension {
+	
+	/**
+	 * getDimensionKey
+	 *
+	 * @override
+	 */
+	public String getDimensionKey () {
+		return "WC";
+	}
+	
 
 	/**
 	 * process
@@ -19,7 +30,7 @@ public class WordCountDimension extends BaseDimension {
 			return 0;
 		}
 		    
-		return this.getInput ().trim ().split ("\\s+").length;
+		return ExtractWordsFromString.getWords(this.getInput ()).length;
 	}
 	
 	

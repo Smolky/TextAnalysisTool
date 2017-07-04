@@ -2,8 +2,19 @@ package main.Dimensions;
 
 import java.util.HashSet;
 
+import main.Sictionaries.Dictionary;
+import main.helpers.ExtractWordsFromString;
+
 /**
  * MatchingWordsFromDictionary
+ * 
+ * this dimension will allow to obtain the number of
+ * words of the text that is contained inside 
+ * a dictionary
+ * 
+ * The comparation will be case independant
+ * 
+ * @todo Allow configuration to test words
  * 
  * @author José Antonio García Díaz
  * 
@@ -11,7 +22,18 @@ import java.util.HashSet;
  */
 public class MatchingWordsFromDictionary extends BaseDimension {
 
-	protected String[] words = {"cabe", "ante", "que"};
+	/** Dictionary dictionary */
+	protected Dictionary dictionary;
+	
+	
+	/**
+	 * MatchingWordsFromDictionary
+	 * 
+	 * @param dictionary
+	 */
+	public MatchingWordsFromDictionary (Dictionary dictionary) {
+		this.dictionary = dictionary;
+	}
 	
 	
 	
@@ -32,13 +54,13 @@ public class MatchingWordsFromDictionary extends BaseDimension {
 		
 		// Prepare 
 		HashSet<String> map = new HashSet<String>();
-		for (String word : this.words) {
-			map.add (word);
+		for (String word : this.dictionary.getWords ()) {
+			map.add (word.toLowerCase());
 		}
 		
 		
-		for (String word : this.getInput ().split ("\\s+")) {
-			if (map.contains (word)) {
+		for (String word : ExtractWordsFromString.getWords (this.getInput ())) {
+			if (map.contains (word.toLowerCase())) {
 				result++;
 			}
 		}

@@ -15,9 +15,20 @@ import main.helpers.ExtractSentencesFromString;
 public class SentencesEndingWithQuestionMarkDimension extends BaseDimension {
 	
 	/**
+	 * getDimensionKey
+	 *
+	 * @override
+	 */
+	public String getDimensionKey () {
+		return "QMarks";
+	}
+	
+	
+	/**
 	 * process
 	 */
 	public double process () {
+		
 		if (this.getInput ().isEmpty()) {
 			return 0;
 		}

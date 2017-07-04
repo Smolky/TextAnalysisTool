@@ -12,6 +12,16 @@ import main.helpers.ExtractSentencesFromString;
 public class WordsPerSentenceDimension extends BaseDimension {
 	
 	/**
+	 * getDimensionKey
+	 *
+	 * @override
+	 */
+	public String getDimensionKey () {
+		return "WPS";
+	}
+	
+	
+	/**
 	 * process
 	 */
 	public double process () {
