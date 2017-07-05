@@ -2,7 +2,7 @@ package main.Dimensions;
 
 import java.util.HashSet;
 
-import main.Sictionaries.Dictionary;
+import main.Dictionaries.Dictionary;
 import main.helpers.ExtractWordsFromString;
 
 /**

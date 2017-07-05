@@ -4,7 +4,10 @@ import main.Dimensions.BaseDimension;
 import main.helpers.ExtractWordsFromString;
 
 /**
- * Dimension
+ * WordCountDimension
+ * 
+ * This dimensions counts the number of words has the
+ * text
  * 
  * @author José Antonio García Díaz
  * 

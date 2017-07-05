@@ -1,4 +1,4 @@
-package main.Sictionaries;
+package main.Dictionaries;
 
 import main.Readers.FileReader;
 

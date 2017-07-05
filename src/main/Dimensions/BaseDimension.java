@@ -12,6 +12,7 @@ import main.Asset;
  */
 public abstract class BaseDimension implements DimensionInterface {
 
+	/** String asset */
 	protected String asset;
 	
 	

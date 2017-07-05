@@ -1,7 +1,7 @@
 package main.Dimensions;
 
+import main.Dictionaries.Dictionary;
 import main.Dimensions.MatchingWordsFromDictionary;
-import main.Sictionaries.Dictionary;
 
 /**
  * 
