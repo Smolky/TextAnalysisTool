@@ -17,7 +17,7 @@ import main.helpers.ExtractSentencesFromString;
  *
  * @package TextAnalysis
  */
-abstract public class CompositeDimension extends BaseDimension implements Iterable<DimensionInterface> {
+public class CompositeDimension extends BaseDimension implements Iterable<DimensionInterface> {
 	
 	/** List<DimensionInterface> dimensions */
 	protected List<DimensionInterface> dimensions = new ArrayList<DimensionInterface>();
@@ -26,6 +26,17 @@ abstract public class CompositeDimension extends BaseDimension implements Iterab
 	@Override
 	public Iterator<DimensionInterface> iterator() {
 		return this.dimensions.iterator();
+	}
+	
+	
+	/**
+	 * setDimensionKey
+	 * 
+	 * @return String
+	 */
+	public CompositeDimension setDimensionKey (String key) {
+		this.key = key;
+		return this;
 	}	
 	
 	
@@ -33,8 +44,9 @@ abstract public class CompositeDimension extends BaseDimension implements Iterab
 	 * add
 	 * @param dimension
 	 */
-	public void add (DimensionInterface dimension) {
+	public CompositeDimension add (DimensionInterface dimension) {
 		this.dimensions.add(dimension);
+		return this;
 	}
 	
 	
@@ -44,6 +56,7 @@ abstract public class CompositeDimension extends BaseDimension implements Iterab
 	 * @override
 	 */	
 	public BaseDimension setInput (Asset asset) {
+		super.setInput(asset);
 		for (DimensionInterface dimension : this.dimensions) {
 			dimension.setInput(asset);
 		}
@@ -57,6 +70,7 @@ abstract public class CompositeDimension extends BaseDimension implements Iterab
 	 * @override
 	 */	
 	public BaseDimension setInput (String asset) {
+		super.setInput(asset);
 		for (DimensionInterface dimension : this.dimensions) {
 			dimension.setInput(asset);
 		}
@@ -67,7 +81,7 @@ abstract public class CompositeDimension extends BaseDimension implements Iterab
 	/**
 	 * process
 	 */
-	public double process () {
+	public double subprocess () {
 		
 		double result = 0;
 		for (DimensionInterface dimension : this.dimensions) {

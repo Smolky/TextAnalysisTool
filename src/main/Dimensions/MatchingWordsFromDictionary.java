@@ -1,9 +1,11 @@
 package main.Dimensions;
 
 import java.util.HashSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import main.Dictionaries.Dictionary;
-import main.helpers.ExtractWordsFromString;
+
 
 /**
  * MatchingWordsFromDictionary
@@ -12,7 +14,7 @@ import main.helpers.ExtractWordsFromString;
  * words of the text that is contained inside 
  * a dictionary
  * 
- * The comparation will be case independant
+ * - comparation is case independant
  * 
  * @todo Allow configuration to test words
  * 
@@ -36,37 +38,57 @@ public class MatchingWordsFromDictionary extends BaseDimension {
 	}
 	
 	
+	/**
+	 * getDimensionKey
+	 *
+	 * @override
+	 */
+	public String getDimensionKey () {
+		return "Dic";
+	}	
+		
+	
 	
 	/**
-	 * process
+	 * subprocess
 	 */
-	public double process () {
+	public double subprocess () {
 		
 		// Init vars
 		double result = 0;
+		HashSet<String> words;
 		
 		
-		// Check if results are empty
-		if (this.getInput ().isEmpty()) {
-			return 0;
-		}
+		// Create a set with the words to use 
+		words = new HashSet<String>();
 		
 		
-		// Prepare 
-		HashSet<String> map = new HashSet<String>();
+		// Extract words from dictorionary
 		for (String word : this.dictionary.getWords ()) {
-			map.add (word.toLowerCase());
+			
+			// To lower case
+			String lowered_word = word.toLowerCase();
+			
+			
+			// Add
+			words.add(lowered_word);
+			
 		}
 		
 		
-		for (String word : ExtractWordsFromString.getWords (this.getInput ())) {
-			if (map.contains (word.toLowerCase())) {
+		// Checking complex words
+		for (String complex_word : words) {
+			
+			// MAtches?
+			Pattern pattern = Pattern.compile("\\b" + complex_word + "\\b");
+			Matcher matcher = pattern.matcher(this.getInput ());
+			
+			while (matcher.find()) {
 				result++;
 			}
 		}
+		
 		    
 		return result;
 	}
-	
-	
 }

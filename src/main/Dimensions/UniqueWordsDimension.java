@@ -1,7 +1,6 @@
 package main.Dimensions;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 import main.helpers.ExtractWordsFromString;
 
@@ -28,9 +27,9 @@ public class UniqueWordsDimension extends BaseDimension {
 	
 	
 	/**
-	 * process
+	 * subprocess
 	 */
-	public double process () {
+	public double subprocess () {
 		
 		// Check if results are empty
 		if (this.getInput ().isEmpty()) {

@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import main.Dimensions.WordsPerSentenceDimension;
 import main.Dimensions.CharacterCountDimension.WordCountDimension;
+import main.Dimensions.LanguageMetricsDimension.WordsPerSentenceDimension;
 
 public class WordsPerSentenceDimensionTest {
 

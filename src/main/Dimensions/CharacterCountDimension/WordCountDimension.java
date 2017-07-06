@@ -28,11 +28,7 @@ public class WordCountDimension extends BaseDimension {
 	/**
 	 * process
 	 */
-	public double process () {
-		if (this.getInput ().isEmpty()) {
-			return 0;
-		}
-		    
+	public double subprocess () {
 		return ExtractWordsFromString.getWords(this.getInput ()).length;
 	}
 	

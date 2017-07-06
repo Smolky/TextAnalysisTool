@@ -25,15 +25,9 @@ public class SentencesEndingWithQuestionMarkDimension extends BaseDimension {
 	
 	
 	/**
-	 * process
+	 * subprocess
 	 */
-	public double process () {
-		
-		if (this.getInput ().isEmpty()) {
-			return 0;
-		}
-		
-		
+	public double subprocess () {
 		
 		// Get the number of sentences
 		double result = 0;

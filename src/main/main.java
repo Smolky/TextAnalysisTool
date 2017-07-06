@@ -7,32 +7,35 @@ import main.Dimensions.CompositeDimension;
 import main.Dimensions.DimensionInterface;
 import main.Dimensions.DimensionsContainer;
 import main.Dimensions.MatchingWordsFromDictionary;
-import main.Dimensions.NegationDimension;
 import main.Dimensions.PercentageWordsCapturedFromDictionary;
 import main.Dimensions.UniqueWordsDimension;
-import main.Dimensions.WordsPerSentenceDimension;
 import main.Dimensions.CharacterCountDimension.CommaCountDimension;
 import main.Dimensions.CharacterCountDimension.WordCountDimension;
-import main.Dimensions.PronounsDimension.PronounsDimension;
-import main.Dimensions.PronounsDimension.PronounsFirstPersonDimension;
-import main.Dimensions.PronounsDimension.PronounsFirstPersonPluralDimension;
-import main.Dimensions.PronounsDimension.PronounsFirstPersonSingularDimension;
-import main.Dimensions.PronounsDimension.PronounsSecondPersonDimension;
-import main.Dimensions.PronounsDimension.PronounsThirdPersonDimension;
+import main.Dimensions.FunctionWordsDimension.AdverbsDimension;
+import main.Dimensions.FunctionWordsDimension.ArticlesDimension;
+import main.Dimensions.FunctionWordsDimension.AuxiliaryVerbsDimension;
+import main.Dimensions.FunctionWordsDimension.ConjunctionsDimension;
+import main.Dimensions.FunctionWordsDimension.NegationDimension;
+import main.Dimensions.FunctionWordsDimension.PrepositionsDimension;
+import main.Dimensions.FunctionWordsDimension.PronounsDimension;
+import main.Dimensions.FunctionWordsDimension.PronounsFirstPersonDimension;
+import main.Dimensions.FunctionWordsDimension.PronounsFirstPersonPluralDimension;
+import main.Dimensions.FunctionWordsDimension.PronounsFirstPersonSingularDimension;
+import main.Dimensions.FunctionWordsDimension.PronounsSecondPersonDimension;
+import main.Dimensions.FunctionWordsDimension.PronounsThirdPersonDimension;
+import main.Dimensions.Grammar.AdjectivesDimension;
+import main.Dimensions.Grammar.ComparativesDimension;
+import main.Dimensions.Grammar.InterrogativesDimension;
+import main.Dimensions.Grammar.NumbersDimension;
+import main.Dimensions.Grammar.RegularVerbsCountDimension;
+import main.Dimensions.LanguageMetricsDimension.WordsLongerThan6Dimension;
+import main.Dimensions.LanguageMetricsDimension.WordsPerSentenceDimension;
 import main.Dimensions.SentencesEndingWithCharacterDimension.SentencesEndingWithQuestionMarkDimension;
-import main.Dimensions.WordsLongerThanNCharactersDimension.WordsLongerThan15Dimension;
+import main.Dimensions.SummaryVariableDimension.AnalyticalThinkingDimension;
+import main.Dimensions.SummaryVariableDimension.AuthenticDimension;
+import main.Dimensions.SummaryVariableDimension.CloutDimension;
+import main.Dimensions.SummaryVariableDimension.EmotionalToneDimension;
 import main.Readers.FileReader;
-import edu.stanford.nlp.process.Tokenizer;
-import edu.stanford.nlp.process.TokenizerFactory;
-import edu.stanford.nlp.process.CoreLabelTokenFactory;
-import edu.stanford.nlp.process.DocumentPreprocessor;
-import edu.stanford.nlp.process.PTBTokenizer;
-import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.ling.HasWord;
-import edu.stanford.nlp.ling.Sentence;
-import edu.stanford.nlp.trees.*;
-import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
-
 
 
 /**
@@ -51,8 +54,8 @@ public class main {
 	 */
 	public static void main(String[] args) {
 		
-		// Start!
-		System.out.println ("Testing file reader");
+		// Dictory folder
+		String dictionary_folder =  "assets/dictionaries/";
 		
 		
 		// Start file reader
@@ -63,66 +66,89 @@ public class main {
 		DimensionsContainer dimensions = new DimensionsContainer ();
 		
 		
-		Dictionary fulldictionary = new Dictionary ();
-		Dictionary firstpersonsingularpronounsdictionary = new Dictionary ();
-		Dictionary firstpersonpluralpronounsdictionary = new Dictionary ();
-		Dictionary secondpersonpronounsdictionary = new Dictionary ();
-		Dictionary thirdpersonpronounsdictionary = new Dictionary ();
-		Dictionary negationsdictionary = new Dictionary ();
-
-		
-		
 		// Create dictionaries
 		try {
-			fulldictionary.loadFromFile ("assets/dictionaries/english.txt");
-			firstpersonsingularpronounsdictionary.loadFromFile ("assets/dictionaries/firstpersonsingularpronoums.txt");
-			firstpersonpluralpronounsdictionary.loadFromFile ("assets/dictionaries/firstpersonpluralpronoums.txt");			
-			secondpersonpronounsdictionary.loadFromFile("assets/dictionaries/secondpersonpronoums.txt");
-			thirdpersonpronounsdictionary.loadFromFile("assets/dictionaries/thirdpersonpronoums.txt");
-			negationsdictionary.loadFromFile("assets/dictionaries/negations.txt");
 			
+			// Create the dimensions
+			dimensions
+				.add (new WordCountDimension ())
+				
+				.add (new AnalyticalThinkingDimension (new Dictionary ()))
+				.add (new CloutDimension (new Dictionary ()))
+				.add (new AuthenticDimension (new Dictionary ()))
+				.add (new EmotionalToneDimension (new Dictionary ()))
+				
+				.add (new WordsPerSentenceDimension ())
+				.add (new WordsLongerThan6Dimension ())
+				.add (new MatchingWordsFromDictionary (new Dictionary (dictionary_folder + "english.txt")))
+				
+				.add (
+					new CompositeDimension ()
+						
+						.setDimensionKey("functionwords")
+
+						// Pronombs
+						.add (new PronounsDimension (
+							new PronounsFirstPersonDimension (
+								new PronounsFirstPersonSingularDimension (new Dictionary (dictionary_folder + "firstpersonsingularpronoums.txt")),
+								new PronounsFirstPersonPluralDimension (new Dictionary (dictionary_folder + "firstpersonpluralpronoums.txt"))
+							),
+							new PronounsSecondPersonDimension (new Dictionary (dictionary_folder + "secondpersonpronoums.txt")),
+							new PronounsThirdPersonDimension (new Dictionary (dictionary_folder + "thirdpersonpronoums.txt"))
+						))
+						
+						.add (new ArticlesDimension (new Dictionary (dictionary_folder + "articles.txt")))
+						.add (new PrepositionsDimension (new Dictionary (dictionary_folder + "prepositions.txt")))
+						.add (new AuxiliaryVerbsDimension (new Dictionary (dictionary_folder + "auxiliaryverbs.txt")))
+						.add (new AdverbsDimension (new Dictionary (dictionary_folder + "adverbs.txt")))
+						.add (new ConjunctionsDimension (new Dictionary (dictionary_folder + "conjunctions.txt")))
+						.add (new NegationDimension (new Dictionary (dictionary_folder + "negations.txt")))
+				)
+				
+				.add (new RegularVerbsCountDimension ())
+				.add (new AdjectivesDimension (new Dictionary (dictionary_folder + "adjectives.txt")))
+				.add (new ComparativesDimension (new Dictionary (dictionary_folder + "comparatives.txt")))
+				.add (new InterrogativesDimension (new Dictionary (dictionary_folder + "interrogatives.txt")))
+				
+				.add (new NumbersDimension ())
+				
+				
+				.add (new CommaCountDimension ())
+				.add (new SentencesEndingWithQuestionMarkDimension ())
+				.add (new UniqueWordsDimension ())
+				.add (new PercentageWordsCapturedFromDictionary ())
+				.add (new MatchingWordsFromDictionary (new Dictionary (dictionary_folder + "english.txt")))
+				
+				
+				
+				
+				// Emotion
+				.add (new EmotionalToneDimension (new Dictionary (dictionary_folder + "mood.txt")))
+				
+				
+				// Custom Composite dimension
+				.add (
+					new CompositeDimension ()
+						.setDimensionKey("sample-composite")
+						.add(new AdverbsDimension (new Dictionary (dictionary_folder + "adverbs.txt")))
+					
+				)
+			;
 			
+		// Exception handling
 		} catch (Exception e) {
-			System.out.println ("error reading dictionaries");
+			System.out.println ("error configuring dimensions");
 			System.out.println (e);
 			return;
 		}
 		
 		
-		// Create the dimensions
-		dimensions
-			.add (new WordCountDimension ())
-			.add (new WordsPerSentenceDimension ())
-			.add (new WordsLongerThan15Dimension ())
-			.add (new CommaCountDimension ())
-			.add (new SentencesEndingWithQuestionMarkDimension ())
-			.add (new UniqueWordsDimension ())
-			.add (new PercentageWordsCapturedFromDictionary ())
-			.add (new MatchingWordsFromDictionary (fulldictionary))
-			
-			
-			// PRonoums
-			.add (new PronounsDimension (
-				new PronounsFirstPersonDimension (
-					new PronounsFirstPersonSingularDimension (firstpersonsingularpronounsdictionary),
-					new PronounsFirstPersonPluralDimension (firstpersonpluralpronounsdictionary)
-				),
-				new PronounsSecondPersonDimension (secondpersonpronounsdictionary),
-				new PronounsThirdPersonDimension (secondpersonpronounsdictionary)
-			))
-			
-			
-			// Assets and negations
-			.add (new NegationDimension (negationsdictionary))
-			
-			
-		;
-		
-		
 		// Start!
 		try {
-			// Get the file
+
+			// Read the assets
 			String input = filereader.read ("assets/samples/sample-file-2.txt");
+			
 			
 			// Read the asset
 			Asset asset = new Asset ();
@@ -131,9 +157,11 @@ public class main {
 			
 			// Set input
 			for (DimensionInterface dimension : dimensions) {
-				dimension.setInput(asset);
+				dimension.setInput (asset);
 			}
 			
+			
+			// Process
 			for (DimensionInterface dimension : dimensions) {
 				printStats (0, dimension);
 			}

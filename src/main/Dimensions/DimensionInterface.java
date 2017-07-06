@@ -61,6 +61,17 @@ public interface DimensionInterface {
 	 * 
 	 * @return
 	 */
-	public double process () ;
+	abstract public double process () ;
+	
+	
+	/**
+	 * subprocess
+	 * 
+	 * Process the calculations
+	 * 
+	 * @return
+	 */
+	public double subprocess () ;
+	
 
 }

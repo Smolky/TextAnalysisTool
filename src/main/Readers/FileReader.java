@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,9 +43,8 @@ public class FileReader {
 	 * @return String
 	 * @throws IOException
 	 */
-	public String[] getLines (String file) throws IOException {
-		List<String> stringList = Files.readAllLines(Paths.get (file), Charset.forName ("ISO-8859-1"));
-		return stringList.toArray(new String[]{});
+	public List<String> getLines (String file) throws IOException {
+		return Files.readAllLines(Paths.get (file), Charset.forName ("ISO-8859-1"));
 	}
 	
 	

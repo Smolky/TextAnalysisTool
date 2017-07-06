@@ -37,16 +37,10 @@ abstract public class CharacterCountDimension extends BaseDimension {
 	
 	
 	/**
-	 * process
+	 * subprocess
 	 */
-	public double process () {
-		if (this.getInput ().isEmpty()) {
-			return 0;
-		}
-		    
-		
+	public double subprocess () {
 		return this.getInput ().length () - this.getInput ().replace (this.getChar (), "").length();
-		
 	}	
 
 }

@@ -27,22 +27,12 @@ public class PercentageWordsCapturedFromDictionary extends BaseDimension {
 	
 	
 	/**
-	 * process
+	 * subprocess
 	 */
-	public double process () {
+	public double subprocess () {
 		
 		// Init vars
 		double words_found = 0;
-		
-		
-		// Check if results are empty
-		if (this.getInput ().isEmpty()) {
-			return 0;
-		}
-		
-		
-		// Get the words stats
-		double words_in_dictionary = this.words.length;
 		double words_in_text = ExtractWordsFromString.getWords (this.getInput ()).length;
 		
 		

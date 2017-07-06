@@ -13,6 +13,9 @@ package main.Dimensions.CharacterCountDimension;
  */
 public class ApostropheCountDimension extends CharacterCountDimension {
 
+	/**
+	 * ApostropheCountDimension
+	 */
 	public ApostropheCountDimension () {
 		this.setChar("'");
 	}
