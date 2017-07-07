@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<configuration>
+  <directory_folder>assets/dictionaries/en/</directory_folder>
+  <dimensions>wc,anger,posemo,body,adjectives,comparatives</dimensions>
+</configuration>

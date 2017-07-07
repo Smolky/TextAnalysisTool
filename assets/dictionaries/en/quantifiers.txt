@@ -1,0 +1,19 @@
+all
+any
+both
+each
+enough
+every
+few
+a few
+fewer
+little
+a little
+less
+lots of
+a lot of
+many
+more
+no
+several
+some

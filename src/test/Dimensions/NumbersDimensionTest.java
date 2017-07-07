@@ -33,12 +33,6 @@ public class NumbersDimensionTest {
 		assertTrue (dimension.setInput (".3").process () == 1);
 		
 		
-		
-		// With text surrounding
-		assertTrue (dimension.setInput ("lorem 30").process () == 1);
-		assertTrue (dimension.setInput ("lorem 30 ipsum").process () == 1);
-		
-		
 		// Decimals
 		assertTrue (dimension.setInput ("30.3").process () == 1);
 		assertTrue (dimension.setInput ("30,3").process () == 2);
@@ -46,12 +40,18 @@ public class NumbersDimensionTest {
 		
 		
 		// Scientific notation
-		assertTrue (dimension.setInput ("7.51x10−9").process () == 1);
-		assertTrue (dimension.setInput ("6.67e−11").process () == 1);
+		assertTrue (dimension.setInput ("7.51e9").process () == 1);
+		assertTrue (dimension.setInput ("-4.70e+9").process () == 1);
 		
 		
 		// Context numbers
 		assertTrue (dimension.setInput ("123-456-7890").process () == 1);
+		
+		
+		// Mixed
+		assertTrue (dimension.setInput ("lorem 30").process () == 1);
+		assertTrue (dimension.setInput ("lorem 30 ipsum").process () == 1);
+		assertTrue (dimension.setInput ("123-456-7890 50").process () == 2);
 		
 		
 	}

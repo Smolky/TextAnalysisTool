@@ -1,6 +1,9 @@
-package main.Dimensions;
+package main;
 
 import java.util.List;
+
+import main.Dimensions.DimensionInterface;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 

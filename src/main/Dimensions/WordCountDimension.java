@@ -1,6 +1,5 @@
-package main.Dimensions.CharacterCountDimension;
+package main.Dimensions;
 
-import main.Dimensions.BaseDimension;
 import main.helpers.ExtractWordsFromString;
 
 /**
@@ -21,7 +20,7 @@ public class WordCountDimension extends BaseDimension {
 	 * @override
 	 */
 	public String getDimensionKey () {
-		return "WC";
+		return "wc";
 	}
 	
 

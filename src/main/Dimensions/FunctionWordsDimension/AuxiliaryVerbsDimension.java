@@ -11,16 +11,6 @@ import main.Dimensions.MatchingWordsFromDictionary;
  * @package TextAnalysis
  */
 public class AuxiliaryVerbsDimension extends MatchingWordsFromDictionary {
-
-	/**
-	 * ArticlesDimension
-	 * 
-	 * @param dictionary
-	 */
-	public AuxiliaryVerbsDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
-	
 	
 	/**
 	 * getDimensionKey

@@ -13,16 +13,6 @@ import main.Dimensions.MatchingWordsFromDictionary;
 public class AdjectivesDimension extends MatchingWordsFromDictionary {
 
 	/**
-	 * ArticlesDimension
-	 * 
-	 * @param dictionary
-	 */
-	public AdjectivesDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
-	
-	
-	/**
 	 * getDimensionKey
 	 *
 	 * @override

@@ -12,15 +12,6 @@ import main.Dimensions.MatchingWordsFromDictionary;
  */
 public class CloutDimension extends MatchingWordsFromDictionary {
 	
-	/**
-	 * EmotionalToneDimension
-	 * 
-	 * @param dictionary
-	 */
-	public CloutDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
-	
 	
 	/**
 	 * getDimensionKey

@@ -11,16 +11,6 @@ import main.Dimensions.MatchingWordsFromDictionary;
  * @package TextAnalysis
  */
 public class ConjunctionsDimension extends MatchingWordsFromDictionary {
-
-	/**
-	 * ArticlesDimension
-	 * 
-	 * @param dictionary
-	 */
-	public ConjunctionsDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
-	
 	
 	/**
 	 * getDimensionKey

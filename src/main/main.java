@@ -1,40 +1,19 @@
 package main;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+
+import org.apache.commons.configuration2.XMLConfiguration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 
 import main.Dictionaries.Dictionary;
-// Imports
 import main.Dimensions.CompositeDimension;
 import main.Dimensions.DimensionInterface;
-import main.Dimensions.DimensionsContainer;
 import main.Dimensions.MatchingWordsFromDictionary;
-import main.Dimensions.PercentageWordsCapturedFromDictionary;
-import main.Dimensions.UniqueWordsDimension;
-import main.Dimensions.CharacterCountDimension.CommaCountDimension;
-import main.Dimensions.CharacterCountDimension.WordCountDimension;
-import main.Dimensions.FunctionWordsDimension.AdverbsDimension;
-import main.Dimensions.FunctionWordsDimension.ArticlesDimension;
-import main.Dimensions.FunctionWordsDimension.AuxiliaryVerbsDimension;
-import main.Dimensions.FunctionWordsDimension.ConjunctionsDimension;
-import main.Dimensions.FunctionWordsDimension.NegationDimension;
-import main.Dimensions.FunctionWordsDimension.PrepositionsDimension;
-import main.Dimensions.FunctionWordsDimension.PronounsDimension;
-import main.Dimensions.FunctionWordsDimension.PronounsFirstPersonDimension;
-import main.Dimensions.FunctionWordsDimension.PronounsFirstPersonPluralDimension;
-import main.Dimensions.FunctionWordsDimension.PronounsFirstPersonSingularDimension;
-import main.Dimensions.FunctionWordsDimension.PronounsSecondPersonDimension;
-import main.Dimensions.FunctionWordsDimension.PronounsThirdPersonDimension;
-import main.Dimensions.Grammar.AdjectivesDimension;
-import main.Dimensions.Grammar.ComparativesDimension;
-import main.Dimensions.Grammar.InterrogativesDimension;
-import main.Dimensions.Grammar.NumbersDimension;
-import main.Dimensions.Grammar.RegularVerbsCountDimension;
-import main.Dimensions.LanguageMetricsDimension.WordsLongerThan6Dimension;
-import main.Dimensions.LanguageMetricsDimension.WordsPerSentenceDimension;
-import main.Dimensions.SentencesEndingWithCharacterDimension.SentencesEndingWithQuestionMarkDimension;
-import main.Dimensions.SummaryVariableDimension.AnalyticalThinkingDimension;
-import main.Dimensions.SummaryVariableDimension.AuthenticDimension;
-import main.Dimensions.SummaryVariableDimension.CloutDimension;
-import main.Dimensions.SummaryVariableDimension.EmotionalToneDimension;
 import main.Readers.FileReader;
 
 
@@ -51,100 +30,148 @@ public class main {
 	 * main
 	 * 
 	 * @param args
+	 * @throws ClassNotFoundException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		
-		// Dictory folder
-		String dictionary_folder =  "assets/dictionaries/";
+		// Init vars
+		FileReader filereader;
+	    
+	    
+		// Load configuration
+		Configurations configs = new Configurations();
+	    XMLConfiguration config;	    
 		
 		
-		// Start file reader
-		FileReader filereader = new FileReader ();
-		
-		
-		// Create the iterator
+		// Create the dimension container
 		DimensionsContainer dimensions = new DimensionsContainer ();
+
 		
-		
-		// Create dictionaries
 		try {
 			
-			// Create the dimensions
-			dimensions
-				.add (new WordCountDimension ())
-				
-				.add (new AnalyticalThinkingDimension (new Dictionary ()))
-				.add (new CloutDimension (new Dictionary ()))
-				.add (new AuthenticDimension (new Dictionary ()))
-				.add (new EmotionalToneDimension (new Dictionary ()))
-				
-				.add (new WordsPerSentenceDimension ())
-				.add (new WordsLongerThan6Dimension ())
-				.add (new MatchingWordsFromDictionary (new Dictionary (dictionary_folder + "english.txt")))
-				
-				.add (
-					new CompositeDimension ()
-						
-						.setDimensionKey("functionwords")
+			// Parse the configuration file
+		    config = configs.xml ("assets/configuration/sample-config.xml");
+		    
+		    
+		    // Package Dimensions
+		    // @todo Fetch using reflection
+		    String[] packages = {
+		    	"",
+		    	".AffectDimension",
+		    	".BiologicalDimenssionProcesses",
+		    	".CharacterCountDimension",
+		    	".CognitiveProcesses",
+		    	".CorePrinciplesDimension",
+		    	".FunctionWordsDimension",
+		    	".Grammar",
+		    	".InformalSpeechDimenion",
+		    	".LanguageMetricsDimension",
+		    	".PerpetualProcessesDimension",
+		    	".PersonalConcernsDimension",
+		    	".RelativityDimension",
+		    	".SentencesEndingWithCharacterDimension",
+		    	".SocialDimension",
+		    	".SummaryVariableDimension",
+		    	".TimeOrientationDimension"
+		    };
+		    
+		    
+		    System.out.println("Loading dimensions...");
 
-						// Pronombs
-						.add (new PronounsDimension (
-							new PronounsFirstPersonDimension (
-								new PronounsFirstPersonSingularDimension (new Dictionary (dictionary_folder + "firstpersonsingularpronoums.txt")),
-								new PronounsFirstPersonPluralDimension (new Dictionary (dictionary_folder + "firstpersonpluralpronoums.txt"))
-							),
-							new PronounsSecondPersonDimension (new Dictionary (dictionary_folder + "secondpersonpronoums.txt")),
-							new PronounsThirdPersonDimension (new Dictionary (dictionary_folder + "thirdpersonpronoums.txt"))
-						))
-						
-						.add (new ArticlesDimension (new Dictionary (dictionary_folder + "articles.txt")))
-						.add (new PrepositionsDimension (new Dictionary (dictionary_folder + "prepositions.txt")))
-						.add (new AuxiliaryVerbsDimension (new Dictionary (dictionary_folder + "auxiliaryverbs.txt")))
-						.add (new AdverbsDimension (new Dictionary (dictionary_folder + "adverbs.txt")))
-						.add (new ConjunctionsDimension (new Dictionary (dictionary_folder + "conjunctions.txt")))
-						.add (new NegationDimension (new Dictionary (dictionary_folder + "negations.txt")))
-				)
-				
-				.add (new RegularVerbsCountDimension ())
-				.add (new AdjectivesDimension (new Dictionary (dictionary_folder + "adjectives.txt")))
-				.add (new ComparativesDimension (new Dictionary (dictionary_folder + "comparatives.txt")))
-				.add (new InterrogativesDimension (new Dictionary (dictionary_folder + "interrogatives.txt")))
-				
-				.add (new NumbersDimension ())
-				
-				
-				.add (new CommaCountDimension ())
-				.add (new SentencesEndingWithQuestionMarkDimension ())
-				.add (new UniqueWordsDimension ())
-				.add (new PercentageWordsCapturedFromDictionary ())
-				.add (new MatchingWordsFromDictionary (new Dictionary (dictionary_folder + "english.txt")))
-				
-				
-				
-				
-				// Emotion
-				.add (new EmotionalToneDimension (new Dictionary (dictionary_folder + "mood.txt")))
-				
-				
-				// Custom Composite dimension
-				.add (
-					new CompositeDimension ()
-						.setDimensionKey("sample-composite")
-						.add(new AdverbsDimension (new Dictionary (dictionary_folder + "adverbs.txt")))
-					
-				)
-			;
+		    
+		    // Search for the configuration
+		    for (String key : config.getString ("dimensions").split(",")) {
+		    	
+		    	System.out.println ("   Loading..." + key);
+		    	
+		    	
+		    	// Search!
+		    	next_key_loop: {
+		    		
+		    		// Inside a package
+		    		for (String internal_package : packages) {
+		    		
+		    			// Inside a class
+					    for (Class test : getAllClasses ("main.Dimensions" + internal_package)) {
+					    	
+					    	// Reflection load of the class
+					    	Class<?> c = Class.forName(test.getName());
+					    	
+					    	
+					    	// Excluding base dimensions
+					    	if (Modifier.isAbstract(c.getModifiers())) {
+					    		continue;		
+					    	}
+					    	
+					    	if (Modifier.isInterface(c.getModifiers())) {
+					    		continue;		
+					    	}
+					    	
+					    	
+					    	// Looking for the constructor
+					    	DimensionInterface o = (DimensionInterface) c.getConstructor().newInstance();
+					    	Method method = c.getMethod ("getDimensionKey");
+					    	String internal_key = (String) method.invoke (o);
+					    	
+					    	if ( ! key.equals(internal_key)) {
+					    		continue;
+					    	}
+					    	
+					    	dimensions.add(o);
+					    	break next_key_loop;
+					    	
+					    }
+		    		}
+		    	}
+		    }
 			
-		// Exception handling
-		} catch (Exception e) {
-			System.out.println ("error configuring dimensions");
-			System.out.println (e);
-			return;
+		} catch (ConfigurationException e) {
+		    System.out.println("config-error");
+		    System.out.println(e);
+		    return;
+		}
+	    
+		
+		System.out.println("Loading dictionaries...");
+
+		
+		// Configure dictionaries
+		for (DimensionInterface dimension : dimensions) {
+
+			// If the dimension contains a dictionary
+	    	if (MatchingWordsFromDictionary.class.isAssignableFrom(dimension.getClass())) {
+	    		
+	    		Dictionary d = new Dictionary ();
+	    		
+	    		// Look for a dictionary
+	    		try {
+		    		d.loadFromFile (config.getString ("directory_folder") +dimension.getDimensionKey() + ".txt");
+	    			
+	    		} catch (Exception e) {
+	    			// An empty dictionary will be used
+	    			System.out.println("   Dictionary not found for " + dimension.getDimensionKey());
+	    		}
+	    		
+	    		
+	    		// Assign
+	    		((MatchingWordsFromDictionary) dimension).setDictionary (d);
+	    		
+	    	}
 		}
 		
 		
 		// Start!
 		try {
+			
+			// Start file reader
+			filereader = new FileReader ();
+			
 
 			// Read the assets
 			String input = filereader.read ("assets/samples/sample-file-2.txt");
@@ -166,14 +193,11 @@ public class main {
 				printStats (0, dimension);
 			}
 			
-
-			
 		} catch (Exception e) {
 			System.out.println ("error");
 			System.out.println (e);
 		}
 	}
-	
 	
 	
 	/**
@@ -200,5 +224,60 @@ public class main {
 			}
 		}
 	}
+	
+	
+	/**
+	 * getAllClasses
+	 * 
+	 * @link https://coderanch.com/t/328491/java/classes-package-programatically
+	 * 
+	 * @param pckgname
+	 * @return
+	 */
+	private static Class[] getAllClasses (String pckgname) {
+		
+		try {
+		   
+			ArrayList classes=new ArrayList();
+			
+
+			// Get a File object for the package 
+		    File directory=null; 
+		    
+		    try { 
+		    	directory=new File(Thread.currentThread().getContextClassLoader().getResource(pckgname.replace('.', '/')).getFile()); 
+		    
+		    } catch(NullPointerException x) { 
+		    	System.out.println("Nullpointer");
+		    	throw new ClassNotFoundException(pckgname+" does not appear to be a valid package"); 
+		    } 
+		    
+		    if (directory.exists()) { 
+		    	// Get the list of the files contained in the package 
+		    	String[] files=directory.list(); 
+		    	for (int i=0; i<files.length; i++) { 
+		    		// we are only interested in .class files 
+		    		if (files[i].endsWith(".class")) { 
+		    			// removes the .class extension 
+		    			classes.add(Class.forName(pckgname+'.'+files[i].substring(0, files[i].length()-6))); 
+		    		} 
+		    	}
+		    	
+		    } else { 
+		    	
+		    	System.out.println("Directory does not exist");
+		    	throw new ClassNotFoundException(pckgname+" does not appear to be a valid package"); 
+		    } 
+		    
+		    Class[] classesA=new Class[classes.size()]; 
+		    classes.toArray (classesA); 
+		     
+		    return classesA;
+		   
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}	
 	
 }

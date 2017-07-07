@@ -21,14 +21,6 @@ public class PronounsThirdPersonDimension extends MatchingWordsFromDictionary {
 	public String getDimensionKey () {
 		return "Other";
 	}
-	
-	
-	/**
-	 * PronounsFirstPersonSingularDimension
-	 * @param dictionary
-	 */
-	public PronounsThirdPersonDimension (Dictionary dictionary) {
-		super(dictionary);
-	}
+
 
 }

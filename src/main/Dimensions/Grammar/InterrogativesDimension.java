@@ -11,16 +11,6 @@ import main.Dimensions.MatchingWordsFromDictionary;
  * @package TextAnalysis
  */
 public class InterrogativesDimension extends MatchingWordsFromDictionary {
-
-	/**
-	 * ArticlesDimension
-	 * 
-	 * @param dictionary
-	 */
-	public InterrogativesDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
-	
 	
 	/**
 	 * getDimensionKey

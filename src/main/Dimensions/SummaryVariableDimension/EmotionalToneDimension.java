@@ -13,16 +13,6 @@ import main.Dimensions.MatchingWordsFromDictionary;
 public class EmotionalToneDimension extends MatchingWordsFromDictionary {
 	
 	/**
-	 * EmotionalToneDimension
-	 * 
-	 * @param dictionary
-	 */
-	public EmotionalToneDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
-	
-	
-	/**
 	 * getDimensionKey
 	 *
 	 * @override

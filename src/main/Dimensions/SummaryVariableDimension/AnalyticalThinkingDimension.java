@@ -23,13 +23,4 @@ public class AnalyticalThinkingDimension extends MatchingWordsFromDictionary {
 		return "Analytic";
 	}	
 
-	/**
-	 * AnalyticalThinkingDimension
-	 * 
-	 * @param dictionary
-	 */
-	public AnalyticalThinkingDimension (Dictionary dictionary) {
-		super(dictionary);
-	}
-
 }

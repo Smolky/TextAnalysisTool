@@ -21,13 +21,6 @@ public class PronounsFirstPersonSingularDimension extends MatchingWordsFromDicti
 	public String getDimensionKey () {
 		return "I";
 	}
-	
-	/**
-	 * PronounsFirstPersonSingularDimension
-	 * @param dictionary
-	 */
-	public PronounsFirstPersonSingularDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
+
 
 }

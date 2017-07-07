@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import main.Dimensions.CharacterCountDimension.WordCountDimension;
+import main.Dimensions.WordCountDimension;
 
 /**
  * WordCountDimensionTest

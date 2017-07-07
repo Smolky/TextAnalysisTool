@@ -21,8 +21,16 @@ import main.Dimensions.BaseDimension;
  */
 public class NumbersDimension extends BaseDimension {
 	
+	/** Double interna_count It takes count of the result */
 	double internal_count = 0;
-
+	
+	
+	/** Regular expressions */
+	public static final String PHONE_NUMBERS_PATTERN = "\\b\\d{3}-\\d{3}-\\d{4}\\b";
+	public static final String SCIENTIFIC_PATTERN = "-?[\\d.]+(?:e[-+]?\\d+)?";
+	public static final String NUMBER_PATTERN = "\\b[\\d.]+\\b";
+	
+	
 	/**
 	 * getDimensionKey
 	 *
@@ -47,11 +55,15 @@ public class NumbersDimension extends BaseDimension {
 
 		
 		// Get phone numbers
-		input = this.extractBasedOnPattern (input, "\\d{3}-\\d{3}-\\d{4}");
+		input = this.extractBasedOnPattern (input, PHONE_NUMBERS_PATTERN);
+		
+		
+		// Get numbers in scientific notation
+		input = this.extractBasedOnPattern (input, SCIENTIFIC_PATTERN);
 		
 	
 		// Get numbers
-		input = this.extractBasedOnPattern (input, "\\b[\\d.]+\\b");
+		input = this.extractBasedOnPattern (input, NUMBER_PATTERN);
 		
 		
 		// How many items?

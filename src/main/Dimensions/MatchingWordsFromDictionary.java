@@ -29,12 +29,14 @@ public class MatchingWordsFromDictionary extends BaseDimension {
 	
 	
 	/**
-	 * MatchingWordsFromDictionary
+	 * setDictionary
 	 * 
 	 * @param dictionary
+	 * @return
 	 */
-	public MatchingWordsFromDictionary (Dictionary dictionary) {
+	public DimensionInterface setDictionary (Dictionary dictionary) {
 		this.dictionary = dictionary;
+		return this;
 	}
 	
 	

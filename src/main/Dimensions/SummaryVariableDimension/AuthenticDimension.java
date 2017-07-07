@@ -11,16 +11,7 @@ import main.Dimensions.MatchingWordsFromDictionary;
  * @package TextAnalysis
  */
 public class AuthenticDimension extends MatchingWordsFromDictionary {
-	
-	/**
-	 * EmotionalToneDimension
-	 * 
-	 * @param dictionary
-	 */
-	public AuthenticDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
-	
+
 	
 	/**
 	 * getDimensionKey

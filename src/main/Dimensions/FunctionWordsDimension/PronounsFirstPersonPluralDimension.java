@@ -21,13 +21,5 @@ public class PronounsFirstPersonPluralDimension extends MatchingWordsFromDiction
 	public String getDimensionKey () {
 		return "We";
 	}
-	
-	/**
-	 * PronounsFirstPersonSingularDimension
-	 * @param dictionary
-	 */
-	public PronounsFirstPersonPluralDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
 
 }

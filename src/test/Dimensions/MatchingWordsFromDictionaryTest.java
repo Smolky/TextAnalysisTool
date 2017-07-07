@@ -30,7 +30,8 @@ public class MatchingWordsFromDictionaryTest {
 		
 		
 		// Create the class to be tested
-		MatchingWordsFromDictionary dimension = new MatchingWordsFromDictionary (dictionary);
+		MatchingWordsFromDictionary dimension = new MatchingWordsFromDictionary ();
+		dimension.setDictionary(dictionary);
 		
 		
 		// Base test

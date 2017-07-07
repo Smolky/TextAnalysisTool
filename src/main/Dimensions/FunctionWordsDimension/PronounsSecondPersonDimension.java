@@ -21,14 +21,5 @@ public class PronounsSecondPersonDimension extends MatchingWordsFromDictionary {
 	public String getDimensionKey () {
 		return "You";
 	}
-	
-	
-	/**
-	 * PronounsFirstPersonSingularDimension
-	 * @param dictionary
-	 */
-	public PronounsSecondPersonDimension(Dictionary dictionary) {
-		super(dictionary);
-	}
 
 }
