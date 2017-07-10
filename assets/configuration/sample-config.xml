@@ -2,31 +2,53 @@
 <configuration>
   <directory_folder>assets/dictionaries/en/</directory_folder>
   
-  <!-- Fast way -->
-  <!-- Will assume dictionaries are called the same way the key is -->
+  <!-- Configuration -->
   <dimensions>
+  
+  	<!-- Simple, specify the key -->
   	<dimension>
   		<key>wc</key>
   	</dimension>
+  	
+  	<!-- Another dimension -->
   	<dimension>
   		<key>Unique</key>
   	</dimension>
+  	
+  	<!-- A dictionary dimension with default dictionary -->
+  	<!-- Will search for a dimension named body.txt --> 
   	<dimension>
   		<key>body</key>
   	</dimension>
+  	
+  	<!-- A dictionary dimension with custom dictionary -->
   	<dimension>
   		<key>adjectives</key>
   		<dictionary>body</dictionary>
   	</dimension>
   	
+  	
+  	<!-- A composite dimension -->
   	<dimension>
+  	
+  		<!-- Custom key -->
   		<key>custom-key</key>
+  		
+  		
+  		<!-- A composite dimension has dimensions -->
   		<dimensions>
+  		
+  			<!-- A simple one -->
   			<dimension>
   				<key>wc</key>
   			</dimension>
+  			
+  			
+  			<!-- A nested one -->
   			<dimension>
   				<key>wc-2</key>
+  				
+  				<!-- Sub dimensions can be nested endless -->
   				<dimensions>
   					<dimension>
   						<key>Unique</key>
