@@ -18,9 +18,19 @@ public interface DimensionInterface {
 	 * 
 	 * Returns a dimension key for identification
 	 * 
-	 * @param Asset
+	 * @return String
 	 */
 	public String getDimensionKey ();
+	
+	
+	/**
+	 * setDimensionKey
+	 * 
+	 * Allows to set a custom key
+	 * 
+	 * @param key
+	 */
+	public DimensionInterface setDimensionKey (String key);	
 	
 	
 	/**

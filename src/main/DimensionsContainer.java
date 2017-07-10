@@ -28,6 +28,15 @@ public class DimensionsContainer implements Iterable<DimensionInterface> {
 	
 	
 	/**
+	 * size
+	 * 
+	 * @return
+	 */
+	public int size () {
+		return this.bList.size();
+	}	
+	
+	/**
 	 * DimensionsContainer
 	 * @param dimension
 	 * @return

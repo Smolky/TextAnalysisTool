@@ -41,6 +41,16 @@ public class MatchingWordsFromDictionary extends BaseDimension {
 	
 	
 	/**
+	 * hasDictionary
+	 * 
+	 * @return Boolean
+	 */
+	public boolean hasDictionary () {
+		return this.dictionary != null;
+	}	
+	
+	
+	/**
 	 * getDimensionKey
 	 *
 	 * @override

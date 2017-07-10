@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <configuration>
   <directory_folder>assets/dictionaries/en/</directory_folder>
-  <dimensions>wc,anger,posemo,body,adjectives,comparatives</dimensions>
+  
+  <!-- Fast way -->
+  <!-- Will assume dictionaries are called the same way the key is -->
+  <dimensions>
+  	<dimension>
+  		<key>wc</key>
+  	</dimension>
+  	<dimension>
+  		<key>Unique</key>
+  	</dimension>
+  	<dimension>
+  		<key>body</key>
+  	</dimension>
+  	<dimension>
+  		<key>adjectives</key>
+  		<dictionary>body</dictionary>
+  	</dimension>
+  	
+  	<dimension>
+  		<key>custom-key</key>
+  		<dimensions>
+  			<dimension>
+  				<key>wc</key>
+  			</dimension>
+  			<dimension>
+  				<key>wc-2</key>
+  				<dimensions>
+  					<dimension>
+  						<key>Unique</key>
+  					</dimension>
+  				</dimensions>
+  			</dimension>
+  		</dimensions>
+  	</dimension>
+  </dimensions>
+  
 </configuration>

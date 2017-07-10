@@ -11,9 +11,7 @@ import main.helpers.ExtractWordsFromString;
  * 
  * @package TextAnalysis
  */
-public class PercentageWordsCapturedFromDictionary extends BaseDimension {
-
-	protected String[] words = {"cabe", "ante", "que"};
+public class PercentageWordsCapturedFromDictionary extends MatchingWordsFromDictionary {
 	
 	
 	/**
@@ -22,7 +20,7 @@ public class PercentageWordsCapturedFromDictionary extends BaseDimension {
 	 * @override
 	 */
 	public String getDimensionKey () {
-		return "Dic";
+		return "DicPercentage";
 	}	
 	
 	
@@ -31,25 +29,11 @@ public class PercentageWordsCapturedFromDictionary extends BaseDimension {
 	 */
 	public double subprocess () {
 		
-		// Init vars
-		double words_found = 0;
-		double words_in_text = ExtractWordsFromString.getWords (this.getInput ()).length;
+		// GEt words
+		double matching_words = super.subprocess();
 		
+		return matching_words / this.dictionary.getWords ().size ();
 		
-		// Get matching words
-		HashSet<String> map = new HashSet<String>();
-		for (String word : this.words) {
-			map.add (word);
-		}
-		
-		
-		for (String word : ExtractWordsFromString.getWords (this.getInput ())) {
-			if (map.contains (word)) {
-				words_found++;
-			}
-		}
-		    
-		return words_found / words_in_text;
 	}	
 	
 }

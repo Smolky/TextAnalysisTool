@@ -1,19 +1,24 @@
 package main;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
-import org.apache.commons.configuration2.XMLConfiguration;
-import org.apache.commons.configuration2.builder.fluent.Configurations;
-import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
-import main.Dictionaries.Dictionary;
+import main.Configuration.ConfigurationLoader;
 import main.Dimensions.CompositeDimension;
 import main.Dimensions.DimensionInterface;
-import main.Dimensions.MatchingWordsFromDictionary;
 import main.Readers.FileReader;
 
 
@@ -30,173 +35,102 @@ public class main {
 	 * main
 	 * 
 	 * @param args
-	 * @throws ClassNotFoundException 
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+	public static void main(String[] args) throws IOException {
 		
-		// Init vars
-		FileReader filereader;
-	    
-	    
-		// Load configuration
-		Configurations configs = new Configurations();
-	    XMLConfiguration config;	    
+		// Configure Logger
+		BasicConfigurator.configure();
+		Logger.getRootLogger().setLevel(Level.INFO);
 		
 		
+		// Read parameters
+		// create Options object
+		Options options = new Options();
+		CommandLine cmd;
+		options.addOption("s", true, "Source");
+		
+		
+		CommandLineParser parser = new DefaultParser();
+		try {
+			cmd = parser.parse (options, args);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return;
+		}
+		
+		
+		// Init pars
+		String source = "sample-file-2.txt";
+		if (cmd.hasOption("s")) {
+			source = cmd.getOptionValue ("c");
+		}
+
+
 		// Create the dimension container
 		DimensionsContainer dimensions = new DimensionsContainer ();
 
 		
 		try {
-			
-			// Parse the configuration file
-		    config = configs.xml ("assets/configuration/sample-config.xml");
-		    
-		    
-		    // Package Dimensions
-		    // @todo Fetch using reflection
-		    String[] packages = {
-		    	"",
-		    	".AffectDimension",
-		    	".BiologicalDimenssionProcesses",
-		    	".CharacterCountDimension",
-		    	".CognitiveProcesses",
-		    	".CorePrinciplesDimension",
-		    	".FunctionWordsDimension",
-		    	".Grammar",
-		    	".InformalSpeechDimenion",
-		    	".LanguageMetricsDimension",
-		    	".PerpetualProcessesDimension",
-		    	".PersonalConcernsDimension",
-		    	".RelativityDimension",
-		    	".SentencesEndingWithCharacterDimension",
-		    	".SocialDimension",
-		    	".SummaryVariableDimension",
-		    	".TimeOrientationDimension"
-		    };
-		    
-		    
-		    System.out.println("Loading dimensions...");
 
-		    
-		    // Search for the configuration
-		    for (String key : config.getString ("dimensions").split(",")) {
-		    	
-		    	System.out.println ("   Loading..." + key);
-		    	
-		    	
-		    	// Search!
-		    	next_key_loop: {
-		    		
-		    		// Inside a package
-		    		for (String internal_package : packages) {
-		    		
-		    			// Inside a class
-					    for (Class test : getAllClasses ("main.Dimensions" + internal_package)) {
-					    	
-					    	// Reflection load of the class
-					    	Class<?> c = Class.forName(test.getName());
-					    	
-					    	
-					    	// Excluding base dimensions
-					    	if (Modifier.isAbstract(c.getModifiers())) {
-					    		continue;		
-					    	}
-					    	
-					    	if (Modifier.isInterface(c.getModifiers())) {
-					    		continue;		
-					    	}
-					    	
-					    	
-					    	// Looking for the constructor
-					    	DimensionInterface o = (DimensionInterface) c.getConstructor().newInstance();
-					    	Method method = c.getMethod ("getDimensionKey");
-					    	String internal_key = (String) method.invoke (o);
-					    	
-					    	if ( ! key.equals(internal_key)) {
-					    		continue;
-					    	}
-					    	
-					    	dimensions.add(o);
-					    	break next_key_loop;
-					    	
-					    }
-		    		}
-		    	}
-		    }
-			
-		} catch (ConfigurationException e) {
-		    System.out.println("config-error");
-		    System.out.println(e);
-		    return;
-		}
-	    
-		
-		System.out.println("Loading dictionaries...");
-
-		
-		// Configure dictionaries
-		for (DimensionInterface dimension : dimensions) {
-
-			// If the dimension contains a dictionary
-	    	if (MatchingWordsFromDictionary.class.isAssignableFrom(dimension.getClass())) {
-	    		
-	    		Dictionary d = new Dictionary ();
-	    		
-	    		// Look for a dictionary
-	    		try {
-		    		d.loadFromFile (config.getString ("directory_folder") +dimension.getDimensionKey() + ".txt");
-	    			
-	    		} catch (Exception e) {
-	    			// An empty dictionary will be used
-	    			System.out.println("   Dictionary not found for " + dimension.getDimensionKey());
-	    		}
-	    		
-	    		
-	    		// Assign
-	    		((MatchingWordsFromDictionary) dimension).setDictionary (d);
-	    		
-	    	}
-		}
-		
-		
-		// Start!
-		try {
-			
-			// Start file reader
-			filereader = new FileReader ();
-			
-
-			// Read the assets
-			String input = filereader.read ("assets/samples/sample-file-2.txt");
+			// Create the loader
+			ConfigurationLoader loader = new ConfigurationLoader ("sample-config.xml");
 			
 			
-			// Read the asset
-			Asset asset = new Asset ();
-			asset.setAsset (input);
+			// Fetch dimensions
+			dimensions = loader.LoadDimensions ();
 			
 			
-			// Set input
-			for (DimensionInterface dimension : dimensions) {
-				dimension.setInput (asset);
-			}
+			// Load dictionaries
+			loader.loadDictionaries (dimensions);
 			
-			
-			// Process
-			for (DimensionInterface dimension : dimensions) {
-				printStats (0, dimension);
-			}
 			
 		} catch (Exception e) {
-			System.out.println ("error");
-			System.out.println (e);
+			System.out.println ("error loading configuration");
+			e.printStackTrace(System.out);
+			return;
 		}
+			
+			
+		// Start file reader
+		FileReader filereader = new FileReader ();
+		
+		
+		File folder = new File ("assets/samples");
+		File[] listOfFiles = folder.listFiles();
+		
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+		    
+				String input = new String(Files.readAllBytes(Paths.get(listOfFiles[i].getPath())));
+				Asset asset = new Asset ();
+				asset.setAsset (input);
+				
+				// Set input
+				for (DimensionInterface dimension : dimensions) {
+					dimension.setInput (asset);
+				}
+				
+				// Process
+				if (i == 0) {
+					for (DimensionInterface dimension : dimensions) {
+						System.out.print (dimension.getDimensionKey() + " ");
+					}
+					System.out.println ("");
+				}
+				
+				for (DimensionInterface dimension : dimensions) {
+					printCSVStats (0, dimension);
+				}
+				
+				System.out.println ("");
+				
+				
+			}
+		}
+		
+
 	}
 	
 	
@@ -227,57 +161,24 @@ public class main {
 	
 	
 	/**
-	 * getAllClasses
+	 * printCSVStats
 	 * 
-	 * @link https://coderanch.com/t/328491/java/classes-package-programatically
+	 * This function helps to print the herarchy of the dimensions
+	 * with proper indentation level
 	 * 
-	 * @param pckgname
-	 * @return
+	 * @param level
+	 * @param dimension
 	 */
-	private static Class[] getAllClasses (String pckgname) {
+	public static void printCSVStats (int level, DimensionInterface dimension) {
 		
-		try {
-		   
-			ArrayList classes=new ArrayList();
-			
-
-			// Get a File object for the package 
-		    File directory=null; 
-		    
-		    try { 
-		    	directory=new File(Thread.currentThread().getContextClassLoader().getResource(pckgname.replace('.', '/')).getFile()); 
-		    
-		    } catch(NullPointerException x) { 
-		    	System.out.println("Nullpointer");
-		    	throw new ClassNotFoundException(pckgname+" does not appear to be a valid package"); 
-		    } 
-		    
-		    if (directory.exists()) { 
-		    	// Get the list of the files contained in the package 
-		    	String[] files=directory.list(); 
-		    	for (int i=0; i<files.length; i++) { 
-		    		// we are only interested in .class files 
-		    		if (files[i].endsWith(".class")) { 
-		    			// removes the .class extension 
-		    			classes.add(Class.forName(pckgname+'.'+files[i].substring(0, files[i].length()-6))); 
-		    		} 
-		    	}
-		    	
-		    } else { 
-		    	
-		    	System.out.println("Directory does not exist");
-		    	throw new ClassNotFoundException(pckgname+" does not appear to be a valid package"); 
-		    } 
-		    
-		    Class[] classesA=new Class[classes.size()]; 
-		    classes.toArray (classesA); 
-		     
-		    return classesA;
-		   
-		} catch (Exception e) {
-			e.printStackTrace();
+		// Print!
+		System.out.print (dimension.process() + " ");
+		
+		if (dimension instanceof CompositeDimension) {
+			for (DimensionInterface subdimension : (CompositeDimension) dimension) {
+				printCSVStats (level + 1, subdimension);
+			}
 		}
-		return null;
-	}	
+	}
 	
 }
