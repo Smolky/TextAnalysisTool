@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.log4j.BasicConfigurator;
@@ -29,6 +30,11 @@ import main.Dimensions.DimensionInterface;
  */
 public class main {
 
+	/** String format will output with 16 characters*/
+	
+	public static String format = "%16s;";
+	
+	
 	/**
 	 * main
 	 * 
@@ -48,8 +54,17 @@ public class main {
 		CommandLine cmd;
 		
 		
+		Option sourceOption = Option.builder("s")
+			.hasArg(true)
+            .required(false)
+            .desc("The path to the source files.")
+            .longOpt("source")
+            .build()
+	    ;		
+		
+		
 		// Add options
-		options.addOption ("s", true, "Source");
+		options.addOption (sourceOption);
 		
 		
 		// Convert the parameters to options
@@ -162,7 +177,7 @@ public class main {
 	public static void printKeys (int level, DimensionInterface dimension) {
 		
 		// Print!
-		System.out.format("%s;", dimension.getDimensionKey());
+		System.out.format(format, dimension.getDimensionKey());
 		
 		
 		if (dimension instanceof CompositeDimension) {
@@ -210,7 +225,7 @@ public class main {
 	public static void printCSVStats (DimensionInterface dimension) {
 		
 		// Print!
-		System.out.format("%s;", dimension.process());
+		System.out.format(format, dimension.process());
 		
 		
 		if (dimension instanceof CompositeDimension) {

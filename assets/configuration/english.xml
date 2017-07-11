@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+	
 	<directory_folder>assets/dictionaries/en/</directory_folder>
 	<tagger>assets/taggers/english-left3words-distsim.tagger</tagger>
+	
+	
 	<!-- Configuration -->
 	<dimensions>
 		<!-- Simple, specify the key -->
@@ -142,6 +145,13 @@
 				<dimension>
 					<key>numbers</key>
 				</dimension>
+				
+				<dimension>
+					<key>phones</key>
+					<class>main.Dimensions.PatternDimension</class>
+					<pattern>\b\d{3}-\d{3}-\d{4}\b</pattern>
+				</dimension>
+				
 				<dimension>
 					<key>quant</key>
 					<class>main.Dimensions.MatchingWordsFromDictionary</class>

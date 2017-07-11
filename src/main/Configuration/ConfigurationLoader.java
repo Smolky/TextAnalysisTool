@@ -20,6 +20,7 @@ import main.Dimensions.CharacterCountDimension;
 import main.Dimensions.CompositeDimension;
 import main.Dimensions.DimensionInterface;
 import main.Dimensions.MatchingWordsFromDictionary;
+import main.Dimensions.PatternDimension;
 import main.Dimensions.RegularVerbsCountDimension;
 import main.Dimensions.WordsLongerThanNDimension;
 
@@ -424,6 +425,7 @@ public class ConfigurationLoader {
         	String custom_class = customdimension.getString ("class");
         	String length = customdimension.getString ("wordlength");
         	String character = customdimension.getString ("character");
+        	String pattern = customdimension.getString ("pattern");
         	List<HierarchicalConfiguration<ImmutableNode>> inner_dimensions_config = customdimension.configurationsAt ("dimensions.dimension");
 	    	
 	    	
@@ -461,6 +463,12 @@ public class ConfigurationLoader {
 	    	if (character != null && newDimension instanceof CharacterCountDimension) {
 	    		((CharacterCountDimension) newDimension).setChar (character);	 
 	    	}	    	
+	    	
+	    	
+	    	// Assign pattern
+	    	if (pattern != null && newDimension instanceof PatternDimension) {
+	    		((PatternDimension) newDimension).setPattern (pattern);	 
+	    	}	 	    	
 	    	
 	    	
 	    	// Load custom dictionary
