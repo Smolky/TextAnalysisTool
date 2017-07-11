@@ -76,7 +76,7 @@ public class main {
 		try {
 
 			// Load the configuration
-			ConfigurationLoader loader = new ConfigurationLoader ("sample-config.xml");
+			ConfigurationLoader loader = new ConfigurationLoader ("english.xml");
 			
 			
 			// Load the dimensions that we are going to use
@@ -161,11 +161,8 @@ public class main {
 	 */
 	public static void printKeys (int level, DimensionInterface dimension) {
 		
-		String chars = new String (new char[level * 1]).replace('\0', '*');
-		
-		
 		// Print!
-		System.out.format("%16s", dimension.getDimensionKey() + " " + chars);
+		System.out.format("%s;", dimension.getDimensionKey());
 		
 		
 		if (dimension instanceof CompositeDimension) {
@@ -213,7 +210,7 @@ public class main {
 	public static void printCSVStats (DimensionInterface dimension) {
 		
 		// Print!
-		System.out.format("%16s", dimension.process());
+		System.out.format("%s;", dimension.process());
 		
 		
 		if (dimension instanceof CompositeDimension) {
