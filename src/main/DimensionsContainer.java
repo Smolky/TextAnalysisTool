@@ -28,6 +28,16 @@ public class DimensionsContainer implements Iterable<DimensionInterface> {
 	
 	
 	/**
+	 * getDimensions
+	 * 
+	 * @return List<DimensionInterface>
+	 */
+	public List<DimensionInterface> getDimensions () {
+		return this.bList;
+	}
+	
+	
+	/**
 	 * size
 	 * 
 	 * @return

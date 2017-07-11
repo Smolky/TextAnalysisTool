@@ -1,7 +1,6 @@
 package main.Dimensions.Grammar;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import main.Dimensions.BaseDimension;
@@ -19,6 +18,19 @@ import main.Dimensions.BaseDimension;
  */
 public class RegularVerbsCountDimension extends BaseDimension {
 	
+	// Tagger
+	MaxentTagger tagger;
+	
+	
+	/**
+	 * setTagger
+	 * @param tagger
+	 */
+	public void setTagger (MaxentTagger tagger) {
+		this.tagger = tagger;
+	}
+
+	
 	/**
 	 * getDimensionKey
 	 *
@@ -34,19 +46,14 @@ public class RegularVerbsCountDimension extends BaseDimension {
 	 */
 	public double subprocess () {
 		
-		// Create Tagger
-		MaxentTagger tagger = new MaxentTagger("assets/taggers/english-left3words-distsim.tagger");
-		String tagged = tagger.tagString(this.getInput ());
-		Pattern VerbPat=Pattern.compile("[A-Za-z]+/VB.");
-		Matcher matcher = VerbPat.matcher (tagged);
-		
-		double count = 0;
-		while (matcher.find()) {
-		    count++;		
+		// No tagger to check!
+		if (this.tagger == null) {
+			return 0;
 		}
 		
 		
-		return count;
+		// Get tagged process
+		return StringUtils.countMatches (this.tagger.tagString (this.getInput ()), "_VBP");
 		
 	}
 }

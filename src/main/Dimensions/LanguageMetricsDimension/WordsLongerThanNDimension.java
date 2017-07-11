@@ -11,7 +11,7 @@ import main.helpers.ExtractWordsFromString;
  * 
  * @author José Antonio García Díaz
  */
-abstract public class WordsLongerThanNDimension extends BaseDimension {
+public class WordsLongerThanNDimension extends BaseDimension {
 	
 	/** int length */
 	public int length;
@@ -27,6 +27,7 @@ abstract public class WordsLongerThanNDimension extends BaseDimension {
 	public void setLength (int length) {
 		this.length = length;
 	}
+	
 	
 	/**
 	 * getLength

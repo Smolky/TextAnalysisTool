@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <configuration>
+
   <directory_folder>assets/dictionaries/en/</directory_folder>
+  <tagger>assets/taggers/english-left3words-distsim.tagger</tagger>
   
   <!-- Configuration -->
   <dimensions>
@@ -10,53 +12,479 @@
   		<key>wc</key>
   	</dimension>
   	
-  	<!-- Another dimension -->
+  	
+  	<!-- Summary variable dimensions -->
   	<dimension>
-  		<key>Unique</key>
-  	</dimension>
-  	
-  	<!-- A dictionary dimension with default dictionary -->
-  	<!-- Will search for a dimension named body.txt --> 
-  	<dimension>
-  		<key>body</key>
-  	</dimension>
-  	
-  	<!-- A dictionary dimension with custom dictionary -->
-  	<dimension>
-  		<key>adjectives</key>
-  		<dictionary>body</dictionary>
-  	</dimension>
-  	
-  	
-  	<!-- A composite dimension -->
-  	<dimension>
-  	
-  		<!-- Custom key -->
-  		<key>custom-key</key>
+  		<key>summary</key>
   		
-  		
-  		<!-- A composite dimension has dimensions -->
   		<dimensions>
-  		
-  			<!-- A simple one -->
+  			
+  			<!-- A dictionary dimension with default dictionary -->
   			<dimension>
-  				<key>wc</key>
+  				<key>Analytic</key>
+  				<class>MatchingWordsFromDictionary</class>
   			</dimension>
   			
-  			
-  			<!-- A nested one -->
   			<dimension>
-  				<key>wc-2</key>
-  				
-  				<!-- Sub dimensions can be nested endless -->
+  				<key>Clout</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			
+            <dimension>
+  				<key>Authentic</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			
+            <dimension>
+  				<key>Tone</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>    			
+  			  		
+  		</dimensions>
+  	</dimension>
+  	
+  	
+  	<!-- LanguageMetricsDimension -->
+  	<dimension>
+  		<key>lng-metrics</key>
+  		<dimensions>
+  			<dimension>
+  				<key>wps</key>
+  			</dimension>
+  			<dimension>
+  				<key>Sixltr</key>
+  				<class>WordsLongerThanNDimension</class>
+  				<wordlength>6</wordlength>
+  			</dimension>
+  			<dimension>
+  				<key>15ltr</key>
+  				<class>WordsLongerThanNDimension</class>
+  				<wordlength>15</wordlength>
+  			</dimension>
+            <dimension>
+  				<key>Dic</key>
+  				<class>MatchingWordsFromDictionary</class>
+  				<dictionary>english</dictionary>
+  			</dimension>  			
+  		</dimensions>
+  	</dimension>
+  	
+  	<!-- FunctionWordsDimension -->
+  	<dimension>
+  		<key>lng-function</key>
+  		<dimensions>
+  			<dimension>
+  				<key>personal</key>
   				<dimensions>
   					<dimension>
-  						<key>Unique</key>
+  						<key>FirstPerson</key>
+  						<dimensions>
+  							<dimension>
+								<key>I</key>
+  								<class>MatchingWordsFromDictionary</class>
+  								<dictionary>firstpersonsingularpronoums</dictionary>  										
+  							</dimension>
+  							<dimension>
+								<key>We</key>
+  								<class>MatchingWordsFromDictionary</class>
+  								<dictionary>firstpersonpluralpronoums</dictionary>  										
+  							</dimension>  							
+  						</dimensions>
   					</dimension>
+  					<dimension>
+  						<key>You</key>
+						<class>MatchingWordsFromDictionary</class>
+  						<dictionary>secondpersonpronoums</dictionary>  										
+  					</dimension>
+  					<dimension>
+  						<key>Third</key>
+						<class>MatchingWordsFromDictionary</class>
+  						<dictionary>thirdpersonpronoums</dictionary>  										
+  					</dimension>  					
   				</dimensions>
+  			</dimension>
+  			<dimension>
+  				<key>impersonal</key>
+  				<class>MatchingWordsFromDictionary</class>
+  				<dictionary>impersonalpronouns</dictionary>
   			</dimension>
   		</dimensions>
   	</dimension>
+	<dimension>
+		<key>articles</key>
+		<dimensions>
+			<dimension>
+				<key>prepositions</key>
+				<class>MatchingWordsFromDictionary</class>
+			</dimension>
+			<dimension>
+				<key>auxiliaryverbs</key>
+				<class>MatchingWordsFromDictionary</class>
+			</dimension>	
+			<dimension>
+				<key>adverbs</key>
+				<class>MatchingWordsFromDictionary</class>
+			</dimension>
+			<dimension>
+				<key>conjunctions</key>
+				<class>MatchingWordsFromDictionary</class>
+			</dimension>
+			<dimension>
+				<key>negations</key>
+				<class>MatchingWordsFromDictionary</class>
+			</dimension>				
+		</dimensions>
+  		
+  	</dimension>
+  	
+  	<dimension>
+  		<key>Grammar</key>
+  		<dimensions>
+  			<dimension>
+  				<key>Regular</key>
+  			</dimension>
+  			<dimension>
+  				<key>adjectives</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>comparatives</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>interrogatives</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>numbers</key>
+  			</dimension>
+  			<dimension>
+  				<key>quant</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>    			
+  		</dimensions>
+  	</dimension>
+  	
+  	<!-- Affect -->
+  	<dimension>
+  		<key>Affect</key>
+  		<dimensions>
+  			<dimension>
+  				<key>posemo</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>negative</key>
+  				<dimensions>
+  					<dimension>
+  						<key>anx</key>
+  						<class>MatchingWordsFromDictionary</class>
+  					</dimension>
+  					<dimension>
+  						<key>anger</key>
+  						<class>MatchingWordsFromDictionary</class>
+  					</dimension>
+  					<dimension>
+  						<key>sad</key>
+  						<class>MatchingWordsFromDictionary</class>
+  					</dimension>  					
+  				</dimensions>
+  			</dimension>  			
+  		</dimensions>
+  	</dimension>
+  	
+  	
+  	<!-- Social -->
+  	<dimension>
+  		<key>Affect</key>
+  		<dimensions>
+  			<dimension>
+  				<key>family</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>female</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>male</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>friend</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  		</dimensions>
+  	</dimension>  	
+  	
+  	
+  	<!-- Cognitive -->
+  	<dimension>
+  		<key>cognitive</key>
+  		<dimensions>
+  			<dimension>
+  				<key>insight</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>cause</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>discrep</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>tentativeness</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>certainty</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>differ</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  		</dimensions>
+  	</dimension>
+  	
+  	
+  	<!-- Perpetual -->
+  	<dimension>
+  		<key>perpetual</key>
+  		<dimensions>
+  			<dimension>
+  				<key>feel</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>hear</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>see</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  		</dimensions>
+  	</dimension>
+  	
+  	
+  	<!-- Biological -->
+  	<dimension>
+  		<key>bio</key>
+  		<dimensions>
+  			<dimension>
+  				<key>body</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>health</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>ingesting</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>sexual</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  		</dimensions>
+  	</dimension>
+  	
+  	
+  	<!-- Biological -->
+  	<dimension>
+  		<key>time</key>
+  		<dimensions>
+  			<dimension>
+  				<key>focuspast</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>focuspresent</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>focusfuture</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  		</dimensions>
+  	</dimension>
+  	
+  	
+  	<!-- Relatitivy -->
+  	<dimension>
+  		<key>relativity</key>
+  		<dimensions>
+  			<dimension>
+  				<key>motion</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>space</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>time</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  		</dimensions>
+  	</dimension> 
+  	
+  	
+  	<!-- Personal -->
+  	<dimension>
+  		<key>personal</key>
+  		<dimensions>
+  			<dimension>
+  				<key>death</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>home</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>leisure</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>money</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>religion</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>work</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>  			
+  		</dimensions>
+  	</dimension>   	
+  	
+  	
+  	<!-- Informal speech -->
+  	<dimension>
+  		<key>informal</key>
+  		<dimensions>
+  			<dimension>
+  				<key>assent</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>fillers</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>netspeak</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>nonfluencies</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>swear</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>			
+  		</dimensions>
+  	</dimension>
+  	
+  	
+  	<!-- Core principles -->
+  	<dimension>
+  		<key>core</key>
+  		<dimensions>
+  			<dimension>
+  				<key>affiliation</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>achievement</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>power</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>reward</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>
+  			<dimension>
+  				<key>risk</key>
+  				<class>MatchingWordsFromDictionary</class>
+  			</dimension>			
+  		</dimensions>
+  	</dimension>
+  	
+  	
+  	<!-- Punctuation -->
+  	<dimension>
+  		<key>punctuation</key>
+  		<dimensions>
+  			<dimension>
+  				<key>periods</key>
+  				<class>CharacterCountDimension</class>
+  				<character>.</character>
+  			</dimension>
+  			<dimension>
+  				<key>commas</key>
+  				<class>CharacterCountDimension</class>
+  				<character>,</character>
+  			</dimension>
+  			<dimension>
+  				<key>colons</key>
+  				<class>CharacterCountDimension</class>
+  				<character>:</character>
+  			</dimension>
+			<dimension>
+  				<key>semicolons</key>
+  				<class>CharacterCountDimension</class>
+  				<character>:</character>
+  			</dimension>
+			<dimension>
+  				<key>question</key>
+  				<class>CharacterCountDimension</class>
+  				<character>?</character>
+  			</dimension>
+			<dimension>
+  				<key>exclamations</key>
+  				<class>CharacterCountDimension</class>
+  				<character>!</character>
+  			</dimension>
+			<dimension>
+  				<key>dashes</key>
+  				<class>CharacterCountDimension</class>
+  				<character>-</character>
+  			</dimension>
+			<dimension>
+  				<key>quotes</key>
+  				<class>CharacterCountDimension</class>
+  				<character>"</character>
+  			</dimension>
+			<dimension>
+  				<key>apostrohpe</key>
+  				<class>CharacterCountDimension</class>
+  				<character>'</character>
+  			</dimension>
+  			<dimension>
+  				<key>parenthesis</key>
+  				<class>CharacterCountDimension</class>
+  				<character>(</character>
+  			</dimension>
+  			<dimension>
+  				<key>other</key>
+  				<class>SentencesEndingWithDimension</class>
+  				<character>+</character>
+  			</dimension>    			
+  		</dimensions>
+  	</dimension>  	
+  	
   </dimensions>
+  
   
 </configuration>

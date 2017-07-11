@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import main.Asset;
-import main.helpers.ExtractSentencesFromString;
 
 /**
  * CompositeDimension
@@ -27,6 +26,16 @@ public class CompositeDimension extends BaseDimension implements Iterable<Dimens
 	public Iterator<DimensionInterface> iterator() {
 		return this.dimensions.iterator();
 	}
+	
+	
+	/**
+	 * getDimensions
+	 * 
+	 * @return List<DimensionInterface>
+	 */
+	public List<DimensionInterface> getDimensions () {
+		return this.dimensions;
+	}	
 	
 	
 	/**

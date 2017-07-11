@@ -1,9 +1,5 @@
 package main.Dimensions;
 
-import java.util.HashSet;
-
-import main.helpers.ExtractWordsFromString;
-
 /**
  * PercentageWordsCapturedFromDictionary
  * 
@@ -12,7 +8,6 @@ import main.helpers.ExtractWordsFromString;
  * @package TextAnalysis
  */
 public class PercentageWordsCapturedFromDictionary extends MatchingWordsFromDictionary {
-	
 	
 	/**
 	 * getDimensionKey
@@ -31,8 +26,17 @@ public class PercentageWordsCapturedFromDictionary extends MatchingWordsFromDict
 		
 		// GEt words
 		double matching_words = super.subprocess();
+		double total_words = this.dictionary.getWords ().size ();
 		
-		return matching_words / this.dictionary.getWords ().size ();
+		
+		// Check empty dirtionaries
+		if (total_words == 0) {
+			return 0;
+		}
+		
+		
+		// Return 
+		return matching_words / total_words;
 		
 	}	
 	

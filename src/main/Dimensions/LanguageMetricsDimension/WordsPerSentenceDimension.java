@@ -1,5 +1,9 @@
 package main.Dimensions.LanguageMetricsDimension;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 import main.Dimensions.BaseDimension;
 import main.helpers.ExtractSentencesFromString;
 
@@ -35,8 +39,18 @@ public class WordsPerSentenceDimension extends BaseDimension {
 		double words = this.getInput ().split ("\\s+").length;
 		
 		
+		if (sentences == 0) {
+			return 0;
+		}
+		
+		// Decimal format
+		BigDecimal bd = new BigDecimal (words / sentences);
+		bd = bd.setScale (5, RoundingMode.HALF_UP);
+		
+		
+		
 		// Return the average value
-		return words / sentences;
+		return bd.doubleValue();
 				
 	}
 }

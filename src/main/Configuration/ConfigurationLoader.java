@@ -13,11 +13,15 @@ import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.configuration2.tree.ImmutableNode;
 
+import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import main.DimensionsContainer;
 import main.Dictionaries.Dictionary;
 import main.Dimensions.CompositeDimension;
 import main.Dimensions.DimensionInterface;
 import main.Dimensions.MatchingWordsFromDictionary;
+import main.Dimensions.Grammar.RegularVerbsCountDimension;
+import main.Dimensions.LanguageMetricsDimension.WordsLongerThanNDimension;
+import main.Dimensions.PuntuactionSymbolDimension.CharacterCountDimension;
 
 
 /**
@@ -44,22 +48,10 @@ public class ConfigurationLoader {
     // @todo Fetch using reflection
     protected String[] packages = {
     	"",
-    	".AffectDimension",
-    	".BiologicalDimenssionProcesses",
-    	".CharacterCountDimension",
-    	".CognitiveProcesses",
-    	".CorePrinciplesDimension",
-    	".FunctionWordsDimension",
+    	".PuntuactionSymbolDimension",
     	".Grammar",
-    	".InformalSpeechDimenion",
     	".LanguageMetricsDimension",
-    	".PerpetualProcessesDimension",
-    	".PersonalConcernsDimension",
-    	".RelativityDimension",
-    	".SentencesEndingWithCharacterDimension",
-    	".SocialDimension",
-    	".SummaryVariableDimension",
-    	".TimeOrientationDimension"
+    	".SentencesEndingWithCharacterDimension"
     };	
 	
     
@@ -82,7 +74,21 @@ public class ConfigurationLoader {
 	
 	
 	/**
+	 * getTagger
+	 * 
+	 * @package TextAnalysis
+	 */
+	
+	public String getTagger () {
+		return configuration.getString ("tagger");	
+	}
+	
+	
+	/**
 	 * LoadDimensions
+	 * 
+	 * This method will load all the dimensions 
+	 * based on the configuration
 	 * 
 	 * @throws ClassNotFoundException 
 	 * @throws SecurityException 
@@ -108,11 +114,10 @@ public class ConfigurationLoader {
     	}
 
 	    
-	    
+	    // Return the dimensions
 	    return dimensions;
 	    
 	}
-	
 	
 	
 	/**
@@ -130,12 +135,28 @@ public class ConfigurationLoader {
 	 * @param dimensions
 	 */
 	public void loadDictionaries (DimensionsContainer dimensions) {
+		this.assignDictionaries (dimensions.getDimensions ());
+	}
+	
+	
+	/**
+	 * assignDictionaries
+	 * 
+	 * @param dimensions
+	 */
+	private void assignDictionaries (List<DimensionInterface> dimensions) {
 		
 		// Configure dictionaries
 		for (DimensionInterface dimension : dimensions) {
 			
+    		// Assign children
+    		if (dimension instanceof CompositeDimension) {
+    			assignDictionaries (((CompositeDimension) dimension).getDimensions ());
+    		}
+			
+			
 			// Exclude dimensions which to allow dictionaries
-			if ( ! (MatchingWordsFromDictionary.class.isAssignableFrom(dimension.getClass()))) {
+			if ( ! (MatchingWordsFromDictionary.class.isAssignableFrom (dimension.getClass()))) {
 				continue;
 			}
 			
@@ -163,50 +184,92 @@ public class ConfigurationLoader {
     		// Assign
     		((MatchingWordsFromDictionary) dimension).setDictionary (d);
 	    		
-		}		
+		}
 	}
+	
+	
+	/**
+	 * 
+	 * @param tagger
+	 * @param dimensions
+	 */
+	public void loadTaggers (MaxentTagger tagger, DimensionsContainer dimensions) {
+		this.assignTaggers (tagger, dimensions.getDimensions ());
+	}	
+	
+	
+	/**
+	 * 
+	 * @param tagger
+	 * @param dimensions
+	 */
+	private void assignTaggers (MaxentTagger tagger, List<DimensionInterface> dimensions) {
+		
+		// Fetch dimensions
+		for (DimensionInterface dimension : dimensions) {
+			
+			// It's a regular verb so it's need a tagger
+			if (dimension instanceof RegularVerbsCountDimension) {
+				((RegularVerbsCountDimension) dimension).setTagger (tagger);
+			}
+			
+			
+			// It's a composite dimension, maybe its children need a tagger
+			if (dimension instanceof CompositeDimension) {
+				assignTaggers (tagger, ((CompositeDimension) dimension).getDimensions ());
+			}
+		}
+	}
+	
 	
 	
 	/**
 	 * getAllClasses
 	 * 
+	 * Returns all classes inside a package
+	 * 
 	 * @link https://coderanch.com/t/328491/java/classes-package-programatically
 	 * 
 	 * @param pckgname
-	 * @return
+	 * @return Class
 	 */
 	private Class<DimensionInterface>[] getAllClasses (String pckgname) {
 		
 		try {
 		    
 			// Classes will store our results
-			ArrayList classes = new ArrayList();
+			ArrayList classes = new ArrayList ();
 			
 
 			// Get a File object for the package 
-		    File directory=null; 
+		    File directory; 
 		    
 		    
 		    // Load the package 
 		    try { 
-		    	directory = new File(Thread.currentThread().getContextClassLoader().getResource(pckgname.replace('.', '/')).getFile()); 
+		    	directory = new File (
+		    		Thread.currentThread ()
+		    			.getContextClassLoader()
+		    			.getResource (pckgname.replace('.', '/'))
+		    			.getFile()
+		    	); 
 		    
-		    } catch(NullPointerException x) { 
-		    	System.out.println("Nullpointer");
+		    } catch (NullPointerException x) { 
+		    	System.out.println ("Nullpointer");
 		    	throw new ClassNotFoundException (pckgname + " does not appear to be a valid package"); 
 		    }
 		    
 		    
 		    // IF we have found our package, then
 		    // obtain the files withtin
-		    if ( ! directory.exists()) {
-		    	System.out.println("Directory does not exist");
-		    	throw new ClassNotFoundException(pckgname+" does not appear to be a valid package"); 
+		    if ( ! directory.exists ()) {
+		    	System.out.println ("Directory does not exist");
+		    	throw new ClassNotFoundException(pckgname + " does not appear to be a valid package"); 
 		    } 		    	
 		    	
 		    
 	    	// Get the list of the files contained in the package 
-	    	String[] files = directory.list();
+	    	String[] files = directory.list ();
 		    	
 		    	
 	    	// Get the files
@@ -260,10 +323,6 @@ public class ConfigurationLoader {
 	 */
 	private DimensionInterface getDimensionFromKey (String key) throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		
-		// Container
-		DimensionsContainer dimensions = new DimensionsContainer ();
-	    	
-    		
 		// Inside a package
 		for (String internal_package : packages) {
 		
@@ -303,6 +362,66 @@ public class ConfigurationLoader {
 		return null;
 	}
 	
+	
+	/**
+	 * getDimensionFromClass
+	 * 
+	 * Search into the packages looking for 
+	 * the dimension which matches the class name
+	 * 
+	 * Can return null if no dimensions was found
+	 * 
+	 * @throws ClassNotFoundException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 * 
+	 * @return DimensionInterface
+	 */
+	private DimensionInterface getDimensionFromClass (String class_name) throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+		
+		// Inside a package
+		for (String internal_package : packages) {
+		
+			// Inside a class
+		    for (Class<DimensionInterface> test : getAllClasses ("main.Dimensions" + internal_package)) {
+		    	
+		    	// Reflection load of the class
+		    	Class<?> c = Class.forName(test.getName());
+		    	
+		    	
+		    	// Excluding base dimensions
+		    	if (Modifier.isAbstract(c.getModifiers())) {
+		    		continue;
+		    	}
+		    	
+		    	if (Modifier.isInterface(c.getModifiers())) {
+		    		continue;
+		    	}
+		    	
+
+		    	// Looking for the constructor
+		    	if ( ! class_name.toLowerCase ().equals (c.getSimpleName ().toLowerCase())) {
+		    		continue;
+		    	}
+		    	
+		    	// Create the dimension
+		    	DimensionInterface o = (DimensionInterface) c.getConstructor().newInstance();
+		    	
+		    	return o;
+		    	
+		    }
+		}
+		
+		
+		// No one found!
+		return null;
+	}
+	
+	
 
 	/**
 	 * createCustomDimension
@@ -329,23 +448,50 @@ public class ConfigurationLoader {
     		
     		// Create dimension
         	DimensionInterface newDimension;
-    		
-    	    	
-	    	// Create custom dimension
-	    	// Composite dimensions
+        	
+        	
+        	// Get params from
+        	String custom_key = customdimension.getString ("key");
+        	String custom_class = customdimension.getString ("class");
+        	String length = customdimension.getString ("wordlength");
+        	String character = customdimension.getString ("character");
+        	List<HierarchicalConfiguration<ImmutableNode>> inner_dimensions_config = customdimension.configurationsAt ("dimensions.dimension");
 	    	
-	    	List<HierarchicalConfiguration<ImmutableNode>> customDimensionsParent2 = customdimension.configurationsAt ("dimensions.dimension");
-	    	if (customDimensionsParent2.size() > 0) {
+	    	
+	    	// If the dimension has sub dimensions is a composite one
+	    	if (inner_dimensions_config.size() > 0) {
 	    		newDimension = new CompositeDimension ();
+	    	
+	    	// If the dimension has a specific class load it.
+	    	} else if (custom_class != null) {
+	    		newDimension = getDimensionFromClass (custom_class);
 	    		
 	    	} else {
-	    		newDimension = getDimensionFromKey (customdimension.getString ("key"));
+	    		newDimension = getDimensionFromKey (custom_key);
 	    		
+	    	}
+	    	
+	    	
+	    	// No dimension found!
+	    	if (newDimension == null) {
+	    		// continue;
 	    	}
 
     	
 	    	// Assign key
-	    	newDimension.setDimensionKey (customdimension.getString("key"));
+	    	newDimension.setDimensionKey (custom_key);
+	    	
+	    	
+	    	// Assign length
+	    	if (length != null && newDimension instanceof WordsLongerThanNDimension) {
+	    		((WordsLongerThanNDimension) newDimension).setLength (Integer.valueOf(length));	 
+	    	}
+	    	
+	    	
+	    	// Assign character
+	    	if (character != null && newDimension instanceof CharacterCountDimension) {
+	    		((CharacterCountDimension) newDimension).setChar (character);	 
+	    	}	    	
 	    	
 	    	
 	    	// Load custom dictionary
@@ -380,7 +526,7 @@ public class ConfigurationLoader {
 	    	if (newDimension instanceof CompositeDimension) {
 	    		
 	    		List<DimensionInterface> subdimensions = new ArrayList<DimensionInterface>();
-	    		subdimensions = createCustomDimension (customDimensionsParent2);
+	    		subdimensions = createCustomDimension (inner_dimensions_config);
 	    		
 	    		for (DimensionInterface subdimension : subdimensions) {
 	    			((CompositeDimension) newDimension).add(subdimension);
@@ -394,8 +540,6 @@ public class ConfigurationLoader {
 		}
     	
     	
-		// Create dimension
-    	DimensionInterface newDimension;
 		return dimensions;
 
     	

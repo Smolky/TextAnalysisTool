@@ -56,6 +56,11 @@ public class MatchingWordsFromDictionary extends BaseDimension {
 	 * @override
 	 */
 	public String getDimensionKey () {
+		
+		if (this.key != null) {
+			return this.key;
+		}
+		
 		return "Dic";
 	}	
 		
@@ -73,6 +78,12 @@ public class MatchingWordsFromDictionary extends BaseDimension {
 		
 		// Create a set with the words to use 
 		words = new HashSet<String>();
+		
+		
+		// If the dictionary is empty, do nothing
+		if (this.dictionary == null) {
+			return 0;
+		}
 		
 		
 		// Extract words from dictorionary
