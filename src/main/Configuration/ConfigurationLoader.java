@@ -16,12 +16,12 @@ import org.apache.commons.configuration2.tree.ImmutableNode;
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import main.DimensionsContainer;
 import main.Dictionaries.Dictionary;
+import main.Dimensions.CharacterCountDimension;
 import main.Dimensions.CompositeDimension;
 import main.Dimensions.DimensionInterface;
 import main.Dimensions.MatchingWordsFromDictionary;
-import main.Dimensions.Grammar.RegularVerbsCountDimension;
-import main.Dimensions.LanguageMetricsDimension.WordsLongerThanNDimension;
-import main.Dimensions.PuntuactionSymbolDimension.CharacterCountDimension;
+import main.Dimensions.RegularVerbsCountDimension;
+import main.Dimensions.WordsLongerThanNDimension;
 
 
 /**
@@ -45,13 +45,8 @@ public class ConfigurationLoader {
 	
 	
     // Package Dimensions
-    // @todo Fetch using reflection
     protected String[] packages = {
-    	"",
-    	".PuntuactionSymbolDimension",
-    	".Grammar",
-    	".LanguageMetricsDimension",
-    	".SentencesEndingWithCharacterDimension"
+    	""
     };	
 	
     
@@ -383,42 +378,16 @@ public class ConfigurationLoader {
 	 */
 	private DimensionInterface getDimensionFromClass (String class_name) throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
 		
-		// Inside a package
-		for (String internal_package : packages) {
-		
-			// Inside a class
-		    for (Class<DimensionInterface> test : getAllClasses ("main.Dimensions" + internal_package)) {
-		    	
-		    	// Reflection load of the class
-		    	Class<?> c = Class.forName(test.getName());
-		    	
-		    	
-		    	// Excluding base dimensions
-		    	if (Modifier.isAbstract(c.getModifiers())) {
-		    		continue;
-		    	}
-		    	
-		    	if (Modifier.isInterface(c.getModifiers())) {
-		    		continue;
-		    	}
-		    	
-
-		    	// Looking for the constructor
-		    	if ( ! class_name.toLowerCase ().equals (c.getSimpleName ().toLowerCase())) {
-		    		continue;
-		    	}
-		    	
-		    	// Create the dimension
-		    	DimensionInterface o = (DimensionInterface) c.getConstructor().newInstance();
-		    	
-		    	return o;
-		    	
-		    }
-		}
-		
-		
-		// No one found!
-		return null;
+	    	
+    	// Reflection load of the class
+    	Class<?> c = Class.forName(class_name);
+    	
+    	
+    	// Create the dimension
+    	DimensionInterface o = (DimensionInterface) c.getConstructor().newInstance();
+    	
+    	return o;
+	    	
 	}
 	
 	

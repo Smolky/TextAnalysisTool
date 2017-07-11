@@ -1,6 +1,4 @@
-package main.Dimensions.PuntuactionSymbolDimension;
-
-import main.Dimensions.BaseDimension;
+package main.Dimensions;
 
 /**
  * CharacterCountDimension

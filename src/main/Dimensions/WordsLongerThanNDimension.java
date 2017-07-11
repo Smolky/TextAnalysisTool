@@ -1,6 +1,5 @@
-package main.Dimensions.LanguageMetricsDimension;
+package main.Dimensions;
 
-import main.Dimensions.BaseDimension;
 import main.helpers.ExtractWordsFromString;
 
 /**

@@ -1,9 +1,8 @@
-package main.Dimensions.Grammar;
+package main.Dimensions;
 
 import org.apache.commons.lang3.StringUtils;
 
 import edu.stanford.nlp.tagger.maxent.MaxentTagger;
-import main.Dimensions.BaseDimension;
 
 
 

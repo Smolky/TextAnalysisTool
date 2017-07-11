@@ -1,9 +1,7 @@
-package main.Dimensions.Grammar;
+package main.Dimensions;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import main.Dimensions.BaseDimension;
 
 /**
  * NumbersDimension

@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import main.Dimensions.WordCountDimension;
-import main.Dimensions.LanguageMetricsDimension.WordsPerSentenceDimension;
+import main.Dimensions.WordsPerSentenceDimension;
 
 public class WordsPerSentenceDimensionTest {
 

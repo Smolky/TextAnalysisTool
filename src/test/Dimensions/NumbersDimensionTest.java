@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import main.Dimensions.Grammar.NumbersDimension;
+import main.Dimensions.NumbersDimension;
 
 
 /**

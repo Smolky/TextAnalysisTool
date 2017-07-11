@@ -1,10 +1,9 @@
-package main.Dimensions.LanguageMetricsDimension;
+package main.Dimensions;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-import main.Dimensions.BaseDimension;
 import main.helpers.ExtractSentencesFromString;
 
 /**

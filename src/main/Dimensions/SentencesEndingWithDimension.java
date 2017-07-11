@@ -1,4 +1,4 @@
-package main.Dimensions.PuntuactionSymbolDimension;
+package main.Dimensions;
 
 import main.helpers.ExtractSentencesFromString;
 
