@@ -18,19 +18,19 @@
 				<!-- A dictionary dimension with default dictionary -->
 				<dimension>
 					<key>Analytic</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>Clout</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>Authentic</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>Tone</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -43,17 +43,17 @@
 				</dimension>
 				<dimension>
 					<key>Sixltr</key>
-					<class>main.Dimensions.WordsLongerThanNDimension</class>
+					<class>WordsLongerThanNDimension</class>
 					<wordlength>6</wordlength>
 				</dimension>
 				<dimension>
 					<key>15ltr</key>
-					<class>main.Dimensions.WordsLongerThanNDimension</class>
+					<class>WordsLongerThanNDimension</class>
 					<wordlength>15</wordlength>
 				</dimension>
 				<dimension>
 					<key>Dic</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 					<dictionary>english</dictionary>
 				</dimension>
 			</dimensions>
@@ -70,31 +70,31 @@
 							<dimensions>
 								<dimension>
 									<key>I</key>
-									<class>main.Dimensions.MatchingWordsFromDictionary</class>
+									<class>MatchingWordsFromDictionary</class>
 									<dictionary>firstpersonsingularpronoums</dictionary>
 								</dimension>
 								<dimension>
 									<key>We</key>
-									<class>main.Dimensions.MatchingWordsFromDictionary</class>
+									<class>MatchingWordsFromDictionary</class>
 									<dictionary>firstpersonpluralpronoums</dictionary>
 								</dimension>
 							</dimensions>
 						</dimension>
 						<dimension>
 							<key>You</key>
-							<class>main.Dimensions.MatchingWordsFromDictionary</class>
+							<class>MatchingWordsFromDictionary</class>
 							<dictionary>secondpersonpronoums</dictionary>
 						</dimension>
 						<dimension>
 							<key>Third</key>
-							<class>main.Dimensions.MatchingWordsFromDictionary</class>
+							<class>MatchingWordsFromDictionary</class>
 							<dictionary>thirdpersonpronoums</dictionary>
 						</dimension>
 					</dimensions>
 				</dimension>
 				<dimension>
 					<key>impersonal</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 					<dictionary>impersonalpronouns</dictionary>
 				</dimension>
 			</dimensions>
@@ -104,23 +104,23 @@
 			<dimensions>
 				<dimension>
 					<key>prepositions</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>auxiliaryverbs</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>adverbs</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>conjunctions</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>negations</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -132,15 +132,15 @@
 				</dimension>
 				<dimension>
 					<key>adjectives</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>comparatives</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>interrogatives</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>numbers</key>
@@ -148,13 +148,13 @@
 				
 				<dimension>
 					<key>phones</key>
-					<class>main.Dimensions.PatternDimension</class>
+					<class>PatternDimension</class>
 					<pattern>\b\d{3}-\d{3}-\d{4}\b</pattern>
 				</dimension>
 				
 				<dimension>
 					<key>quant</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -164,22 +164,22 @@
 			<dimensions>
 				<dimension>
 					<key>posemo</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>negative</key>
 					<dimensions>
 						<dimension>
 							<key>anx</key>
-							<class>main.Dimensions.MatchingWordsFromDictionary</class>
+							<class>MatchingWordsFromDictionary</class>
 						</dimension>
 						<dimension>
 							<key>anger</key>
-							<class>main.Dimensions.MatchingWordsFromDictionary</class>
+							<class>MatchingWordsFromDictionary</class>
 						</dimension>
 						<dimension>
 							<key>sad</key>
-							<class>main.Dimensions.MatchingWordsFromDictionary</class>
+							<class>MatchingWordsFromDictionary</class>
 						</dimension>
 					</dimensions>
 				</dimension>
@@ -191,19 +191,19 @@
 			<dimensions>
 				<dimension>
 					<key>family</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>female</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>male</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>friend</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -213,27 +213,27 @@
 			<dimensions>
 				<dimension>
 					<key>insight</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>cause</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>discrep</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>tentativeness</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>certainty</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>differ</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -243,15 +243,15 @@
 			<dimensions>
 				<dimension>
 					<key>feel</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>hear</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>see</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -261,19 +261,19 @@
 			<dimensions>
 				<dimension>
 					<key>body</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>health</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>ingesting</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>sexual</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -283,15 +283,15 @@
 			<dimensions>
 				<dimension>
 					<key>focuspast</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>focuspresent</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>focusfuture</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -301,15 +301,15 @@
 			<dimensions>
 				<dimension>
 					<key>motion</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>space</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>time</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -319,27 +319,27 @@
 			<dimensions>
 				<dimension>
 					<key>death</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>home</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>leisure</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>money</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>religion</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>work</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -349,23 +349,23 @@
 			<dimensions>
 				<dimension>
 					<key>assent</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>fillers</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>netspeak</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>nonfluencies</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>swear</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -375,23 +375,23 @@
 			<dimensions>
 				<dimension>
 					<key>affiliation</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>achievement</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>power</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>reward</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 				<dimension>
 					<key>risk</key>
-					<class>main.Dimensions.MatchingWordsFromDictionary</class>
+					<class>MatchingWordsFromDictionary</class>
 				</dimension>
 			</dimensions>
 		</dimension>
@@ -401,57 +401,57 @@
 			<dimensions>
 				<dimension>
 					<key>periods</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>.</character>
 				</dimension>
 				<dimension>
 					<key>commas</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>,</character>
 				</dimension>
 				<dimension>
 					<key>colons</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>:</character>
 				</dimension>
 				<dimension>
 					<key>semicolons</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>:</character>
 				</dimension>
 				<dimension>
 					<key>question</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>?</character>
 				</dimension>
 				<dimension>
 					<key>exclamations</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>!</character>
 				</dimension>
 				<dimension>
 					<key>dashes</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>-</character>
 				</dimension>
 				<dimension>
 					<key>quotes</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>"</character>
 				</dimension>
 				<dimension>
 					<key>apostrohpe</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>'</character>
 				</dimension>
 				<dimension>
 					<key>parenthesis</key>
-					<class>main.Dimensions.CharacterCountDimension</class>
+					<class>CharacterCountDimension</class>
 					<character>(</character>
 				</dimension>
 				<dimension>
 					<key>other</key>
-					<class>main.Dimensions.SentencesEndingWithDimension</class>
+					<class>SentencesEndingWithDimension</class>
 					<character>+</character>
 				</dimension>
 			</dimensions>
