@@ -66,6 +66,7 @@
 					<dimensions>
 						<dimension>
 							<key>FirstPerson</key>
+							<strategy>CompositeStrategyMax</strategy>							
 							<dimensions>
 								<dimension>
 									<key>I</key>
