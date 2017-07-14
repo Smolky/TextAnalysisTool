@@ -1,6 +1,7 @@
 package es.um.dis.umutextstats.configuration;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -21,7 +22,7 @@ import es.um.dis.umutextstats.dictionaries.Dictionary;
 import es.um.dis.umutextstats.dimensions.CharacterCountDimension;
 import es.um.dis.umutextstats.dimensions.CompositeDimension;
 import es.um.dis.umutextstats.dimensions.DimensionInterface;
-import es.um.dis.umutextstats.dimensions.MatchingWordsFromDictionary;
+import es.um.dis.umutextstats.dimensions.MatchingRegularExpressionsFromDictionary;
 import es.um.dis.umutextstats.dimensions.PatternDimension;
 import es.um.dis.umutextstats.dimensions.RegularVerbsCountDimension;
 import es.um.dis.umutextstats.dimensions.WordsLongerThanNDimension;
@@ -31,7 +32,11 @@ import es.um.dis.umutextstats.dimensions.WordsLongerThanNDimension;
  * ConfigurationLoader
  * 
  * This class parses the configuration files
- * and creates the dimensions 
+ * and creates the dimensions
+ * 
+ * Configuration files are splitted in two files
+ * - Base configuration
+ * - Dimensions configuration
  *
  * @author José Antonio García Díaz
  *
@@ -87,16 +92,9 @@ public class ConfigurationLoader {
 	 * 
 	 * This method will load all the dimensions 
 	 * based on the configuration
-	 * 
-	 * @throws ClassNotFoundException 
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 * @throws Exception 
 	 */
-	public DimensionsContainer LoadDimensions () throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+	public DimensionsContainer LoadDimensions () throws Exception {
 		
 		// Container
 		DimensionsContainer dimensions = new DimensionsContainer ();
@@ -154,13 +152,13 @@ public class ConfigurationLoader {
 			
 			
 			// Exclude dimensions which to allow dictionaries
-			if ( ! (MatchingWordsFromDictionary.class.isAssignableFrom (dimension.getClass()))) {
+			if ( ! (MatchingRegularExpressionsFromDictionary.class.isAssignableFrom (dimension.getClass()))) {
 				continue;
 			}
 			
 			
 			// Exclude dimensions with custom dictionaries
-			if (((MatchingWordsFromDictionary) dimension).hasDictionary ()) {
+			if (((MatchingRegularExpressionsFromDictionary) dimension).hasDictionary ()) {
 				continue;
 			}
 			
@@ -180,7 +178,7 @@ public class ConfigurationLoader {
 	    		
 	    		
     		// Assign
-    		((MatchingWordsFromDictionary) dimension).setDictionary (d);
+    		((MatchingRegularExpressionsFromDictionary) dimension).setDictionary (d);
 	    		
 		}
 	}
@@ -301,65 +299,6 @@ public class ConfigurationLoader {
 	}
 	
 	
-	/**
-	 * getDimensionFromKey
-	 * 
-	 * Search into the packages looking for 
-	 * the dimension which matches the key
-	 * 
-	 * Can return null if no dimensions was found
-	 * 
-	 * @throws ClassNotFoundException 
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * 
-	 * @return DimensionInterface
-	 */
-	private DimensionInterface getDimensionFromKey (String key) throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
-		
-		// Inside a package
-		for (String internal_package : packages) {
-		
-			// Inside a class
-		    for (Class<DimensionInterface> test : getAllClasses ("es.um.dis.umutextstats.dimensions" + internal_package)) {
-		    	
-		    	// Reflection load of the class
-		    	Class<?> c = Class.forName(test.getName());
-		    	
-		    	
-		    	// Excluding base dimensions
-		    	if (Modifier.isAbstract(c.getModifiers())) {
-		    		continue;		
-		    	}
-		    	
-		    	if (Modifier.isInterface(c.getModifiers())) {
-		    		continue;		
-		    	}
-		    	
-		    	
-		    	// Looking for the constructor
-		    	DimensionInterface o = (DimensionInterface) c.getConstructor().newInstance();
-		    	Method method = c.getMethod ("getDimensionKey");
-		    	String internal_key = (String) method.invoke (o);
-		    	
-		    	if ( ! key.toLowerCase ().equals(internal_key.toLowerCase ())) {
-		    		continue;
-		    	}
-		    	
-		    	return o;
-		    	
-		    }
-		}
-		
-		
-		// No one found!
-		return null;
-	}
-	
 	
 	/**
 	 * getDimensionFromClass
@@ -387,9 +326,9 @@ public class ConfigurationLoader {
     	
     	
     	// Create the dimension
-    	DimensionInterface o = (DimensionInterface) c.getConstructor().newInstance();
-    	
-    	return o;
+    	Constructor<?> constructor = c.getConstructor();
+    	DimensionInterface instance = (DimensionInterface) constructor.newInstance();
+    	return instance;
 	    	
 	}
 	
@@ -435,15 +374,9 @@ public class ConfigurationLoader {
 	 * @param customdimension
 	 * 
 	 * @return DimensionInterface
-	 * @throws InstantiationException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
-	 * @throws IllegalAccessException 
-	 * @throws SecurityException 
-	 * @throws NoSuchMethodException 
-	 * @throws ClassNotFoundException 
+	 * @throws Exception 
 	 */
-	private List<DimensionInterface> createCustomDimension (List<HierarchicalConfiguration<ImmutableNode>> customdimensions) throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
+	private List<DimensionInterface> createCustomDimension (List<HierarchicalConfiguration<ImmutableNode>> customdimensions) throws Exception {
     	
 		// Create our list
 		List<DimensionInterface> dimensions = new ArrayList<DimensionInterface>();
@@ -486,7 +419,8 @@ public class ConfigurationLoader {
 	    		newDimension = getDimensionFromClass (custom_class);
 	    		
 	    	} else {
-	    		newDimension = getDimensionFromKey (custom_key);
+	    		// @todo. Throw correct exception
+	    		throw new Exception ("error in config: " + custom_key);
 	    		
 	    	}
 	    	
@@ -520,7 +454,7 @@ public class ConfigurationLoader {
 	    	
 	    	
 	    	// Load custom dictionary
-	    	if (newDimension instanceof MatchingWordsFromDictionary) {
+	    	if (newDimension instanceof MatchingRegularExpressionsFromDictionary) {
 	    		
 	    		// Load dictionary
 	    		String dictionary = customdimension.getString("dictionary");
@@ -540,10 +474,9 @@ public class ConfigurationLoader {
 		    		
 		    		
 		    		// Assign
-		    		((MatchingWordsFromDictionary) newDimension).setDictionary (d);	    		
+		    		((MatchingRegularExpressionsFromDictionary) newDimension).setDictionary (d);	    		
 		    		
 	    		}
-	    		
 	    	}
 	    	
 	    	

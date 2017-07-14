@@ -39,7 +39,24 @@ public class CharacterCountDimension extends BaseDimension {
 	 * subprocess
 	 */
 	public double subprocess () {
-		return this.getInput ().length () - this.getInput ().replace (this.getChar (), "").length();
+		
+		// Init vars
+		double result = 0;
+		
+		
+		// Get all chars 
+		for (int i = 0; i < this.getChar ().length(); i++){
+			
+			// Get char and string
+			char c = this.getChar ().charAt(i);
+			String input = this.getInput ();
+			
+			
+			// Calculate the occurrences of each character
+		    result = result + this.getInput ().length () - input.replace(Character.toString(c), "").length ();
+		}
+		
+		return result;
 	}	
 
 }

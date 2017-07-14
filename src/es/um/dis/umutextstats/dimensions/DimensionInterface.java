@@ -11,7 +11,7 @@ import es.um.dis.umutextstats.Asset;
  * @author José Antonio García Díaz
  * @package TextAnalysis
  */
-public interface DimensionInterface<T> {
+public interface DimensionInterface {
 	
 	/**
 	 * getDimensionKey
@@ -30,7 +30,7 @@ public interface DimensionInterface<T> {
 	 * 
 	 * @param key
 	 */
-	public T setDimensionKey (String key);	
+	public DimensionInterface setDimensionKey (String key);	
 	
 	
 	/**
@@ -40,7 +40,7 @@ public interface DimensionInterface<T> {
 	 * 
 	 * @param Asset
 	 */
-	public T setInput (Asset input);
+	public DimensionInterface setInput (Asset input);
 	
 	
 	/**
@@ -50,7 +50,7 @@ public interface DimensionInterface<T> {
 	 * 
 	 * @param Asset
 	 */
-	public T setInput (String input);	
+	public DimensionInterface setInput (String input);	
 	
 	
 	

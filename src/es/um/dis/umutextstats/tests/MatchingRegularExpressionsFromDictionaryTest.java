@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import es.um.dis.umutextstats.dictionaries.Dictionary;
-import es.um.dis.umutextstats.dimensions.MatchingWordsFromDictionary;
+import es.um.dis.umutextstats.dimensions.MatchingRegularExpressionsFromDictionary;
 
 
 /**
@@ -15,7 +15,7 @@ import es.um.dis.umutextstats.dimensions.MatchingWordsFromDictionary;
  *
  * @package TextAnalysis
  */
-public class MatchingWordsFromDictionaryTest {
+public class MatchingRegularExpressionsFromDictionaryTest {
 
 	@Test
 	public void test() {
@@ -30,7 +30,7 @@ public class MatchingWordsFromDictionaryTest {
 		
 		
 		// Create the class to be tested
-		MatchingWordsFromDictionary dimension = new MatchingWordsFromDictionary ();
+		MatchingRegularExpressionsFromDictionary dimension = new MatchingRegularExpressionsFromDictionary ();
 		dimension.setDictionary(dictionary);
 		
 		

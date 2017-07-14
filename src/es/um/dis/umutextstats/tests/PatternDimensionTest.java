@@ -24,6 +24,8 @@ public class PatternDimensionTest {
 		
 		// Test
 		assertTrue (dimension.setInput ("lorem").setPattern ("lorem").process () == 1);
+		assertTrue (dimension.setInput ("(lorem)").setPattern ("\\(").process () == 1);
+		assertTrue (dimension.setInput ("(lorem)").setPattern ("\\)").process () == 1);
 		
 		
 	}

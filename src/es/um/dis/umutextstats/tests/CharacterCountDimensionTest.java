@@ -42,7 +42,9 @@ public class CharacterCountDimensionTest {
 		assertFalse (dimension.setChar ("\"").setInput ("\"").process () != 1);
 		
 		
-		// Base test case
+		// Double
+		assertTrue (dimension.setChar ("()").setInput ("(lorem)").process () == 2);
+		assertTrue (dimension.setChar ("'").setInput ("Lorem's ipsum").process () == 1);
 		
 	}
 

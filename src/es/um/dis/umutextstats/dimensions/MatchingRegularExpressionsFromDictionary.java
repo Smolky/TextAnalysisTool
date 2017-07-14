@@ -22,7 +22,7 @@ import es.um.dis.umutextstats.dictionaries.Dictionary;
  * 
  * @package TextAnalysis
  */
-public class MatchingWordsFromDictionary extends BaseDimension {
+public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 
 	/** Dictionary dictionary */
 	protected Dictionary dictionary;

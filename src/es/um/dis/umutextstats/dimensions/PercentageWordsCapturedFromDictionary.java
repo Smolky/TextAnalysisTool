@@ -7,7 +7,7 @@ package es.um.dis.umutextstats.dimensions;
  * 
  * @package TextAnalysis
  */
-public class PercentageWordsCapturedFromDictionary extends MatchingWordsFromDictionary {
+public class PercentageWordsCapturedFromDictionary extends MatchingRegularExpressionsFromDictionary {
 	
 	/**
 	 * getDimensionKey
