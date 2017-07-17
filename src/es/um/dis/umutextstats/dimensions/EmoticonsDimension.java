@@ -14,30 +14,10 @@ import es.um.dis.umutextstats.dictionaries.Dictionary;
  * 
  * @package TextAnalysis
  */
-public class EmoticonsDimension extends MatchingRegularExpressionsFromDictionary {
+public class EmoticonsDimension extends PatternDimension {
 	
-	/**
-	 * subprocess
-	 */
-	public double subprocess () {
-		
-		// Process the dictionary
-		Dictionary parsed = new Dictionary ();
-		for (String word : this.dictionary.getWords ()) {
-			
-			// Get all chars
-			String modified_word = "";
-			for (int i = 0; i < word.length(); i++){
-				modified_word = modified_word + "\\\\" + word.charAt(i);
-			}
-			
-			System.out.println(modified_word);
-			
-			parsed.add (word);
-		}
-		
-		this.setDictionary(parsed);
-		
-		return super.subprocess();
+	public EmoticonsDimension () {
+		this.setPattern("(\\Q:)\\E|\\Q:D\\E|\\Q:(\\E|\\Q:wink:\\E)");
 	}
+	
 }

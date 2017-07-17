@@ -25,20 +25,20 @@ public class EmoticonsDimensionTest {
 		EmoticonsDimension dimension = new EmoticonsDimension (); 
 		
 		
-		// Create a dictionary
-		Dictionary dictionary = new Dictionary ();
-		dictionary
-			.clear ()
-			.add (":(")
-		;
-		
-		
-		// Create the class to be tested
-		dimension.setDictionary(dictionary);
-		
-		
 		// Test
-		assertTrue (dimension.setInput ("I feel blue :(").process () == 1);
+		assertTrue (dimension.setInput ("Text with no emoticons").process () == 0);
+		assertTrue (dimension.setInput ("Text between (parenthesis)").process () == 0);
+		assertTrue (dimension.setInput (":(").process () == 1);
+		assertTrue (dimension.setInput (":((").process () == 1);
+		assertTrue (dimension.setInput ("At the begining :(").process () == 1);
+		assertTrue (dimension.setInput (":( At the end").process () == 1);
+		assertTrue (dimension.setInput ("I feel blue :( right now").process () == 1);
+		
+		
+		// With texts
+		assertTrue (dimension.setInput (":wink:").process () == 1);
+		
+
 		
 	}
 

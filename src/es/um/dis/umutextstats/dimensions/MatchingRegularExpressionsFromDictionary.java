@@ -111,6 +111,7 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 			}
 		}
 		
+
 		    
 		return result;
 	}

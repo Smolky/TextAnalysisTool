@@ -449,11 +449,11 @@
 					<class>CharacterCountDimension</class>
 					<character>()</character>
 				</dimension>
-<!--
+
 				<dimension>
 					<key>emoticons</key>
-					<class>EmoticonsDimension</class>
-				</dimension>-->				
+					<class>EmoticonDimension</class>
+				</dimension>				
 			</dimensions>
 		</dimension>
 	</dimensions>
