@@ -440,7 +440,7 @@
 					<character>"</character>
 				</dimension>
 				<dimension>
-					<key>apostrohpe</key>
+					<key>apostrophe</key>
 					<class>CharacterCountDimension</class>
 					<character>'</character>
 				</dimension>
@@ -452,7 +452,7 @@
 
 				<dimension>
 					<key>emoticons</key>
-					<class>EmoticonDimension</class>
+					<class>EmoticonsDimension</class>
 				</dimension>				
 			</dimensions>
 		</dimension>
