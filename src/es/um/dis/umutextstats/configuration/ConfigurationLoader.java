@@ -3,8 +3,6 @@ package es.um.dis.umutextstats.configuration;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +12,6 @@ import org.apache.commons.configuration2.builder.fluent.Configurations;
 import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.configuration2.tree.ImmutableNode;
 
-import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import es.um.dis.umutextstats.DimensionsContainer;
 import es.um.dis.umutextstats.compositestrategies.CompositeStrategyInterface;
 import es.um.dis.umutextstats.compositestrategies.CompositeStrategySum;
@@ -24,7 +21,6 @@ import es.um.dis.umutextstats.dimensions.CompositeDimension;
 import es.um.dis.umutextstats.dimensions.DimensionInterface;
 import es.um.dis.umutextstats.dimensions.MatchingRegularExpressionsFromDictionary;
 import es.um.dis.umutextstats.dimensions.PatternDimension;
-import es.um.dis.umutextstats.dimensions.RegularVerbsCountDimension;
 import es.um.dis.umutextstats.dimensions.WordsLongerThanNDimension;
 
 
@@ -182,41 +178,6 @@ public class ConfigurationLoader {
 	    		
 		}
 	}
-	
-	
-	/**
-	 * 
-	 * @param tagger
-	 * @param dimensions
-	 */
-	public void loadTaggers (MaxentTagger tagger, DimensionsContainer dimensions) {
-		this.assignTaggers (tagger, dimensions.getDimensions ());
-	}	
-	
-	
-	/**
-	 * 
-	 * @param tagger
-	 * @param dimensions
-	 */
-	private void assignTaggers (MaxentTagger tagger, List<DimensionInterface> dimensions) {
-		
-		// Fetch dimensions
-		for (DimensionInterface dimension : dimensions) {
-			
-			// It's a regular verb so it's need a tagger
-			if (dimension instanceof RegularVerbsCountDimension) {
-				((RegularVerbsCountDimension) dimension).setTagger (tagger);
-			}
-			
-			
-			// It's a composite dimension, maybe its children need a tagger
-			if (dimension instanceof CompositeDimension) {
-				assignTaggers (tagger, ((CompositeDimension) dimension).getDimensions ());
-			}
-		}
-	}
-	
 	
 	
 	/**

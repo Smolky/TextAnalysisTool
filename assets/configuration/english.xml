@@ -2,7 +2,6 @@
 <configuration>
 	
 	<directory_folder>assets/dictionaries/en/</directory_folder>
-	<tagger>assets/taggers/english-left3words-distsim.tagger</tagger>
 	
 	
 	<!-- Configuration -->

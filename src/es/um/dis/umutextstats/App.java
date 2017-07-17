@@ -15,7 +15,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import edu.stanford.nlp.tagger.maxent.MaxentTagger;
 import es.um.dis.umutextstats.configuration.ConfigurationLoader;
 import es.um.dis.umutextstats.dimensions.CompositeDimension;
 import es.um.dis.umutextstats.dimensions.DimensionInterface;
@@ -131,13 +130,6 @@ public class App {
 			// Attach the unmatched dimensions with the dictionaries
 			// based on the default key
 			loader.loadDictionaries (dimensions);
-			
-			
-			// Attach the taggers
-			// Create tagger
-			if (loader.getTagger() != null) {
-				loader.loadTaggers (new MaxentTagger (loader.getTagger()), dimensions);
-			}
 			
 			
 		} catch (Exception e) {
