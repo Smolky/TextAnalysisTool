@@ -357,6 +357,7 @@ public class ConfigurationLoader {
         	String character = customdimension.getString ("character");
         	String pattern = customdimension.getString ("pattern");
         	String strategy= customdimension.getString ("strategy");
+        	String description = customdimension.getString ("description");
         	
         	List<HierarchicalConfiguration<ImmutableNode>> inner_dimensions_config = customdimension.configurationsAt ("dimensions.dimension");
 	    	
@@ -394,6 +395,10 @@ public class ConfigurationLoader {
     	
 	    	// Assign key
 	    	newDimension.setDimensionKey (custom_key);
+	    	
+	    	
+	    	// Assign description
+	    	newDimension.setDescription (description);
 	    	
 	    	
 	    	// Assign length

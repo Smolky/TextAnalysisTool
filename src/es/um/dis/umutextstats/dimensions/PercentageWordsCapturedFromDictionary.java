@@ -15,8 +15,13 @@ public class PercentageWordsCapturedFromDictionary extends MatchingRegularExpres
 	 * @override
 	 */
 	public String getDimensionKey () {
+		
+		if (this.key != null) {
+			return this.key;
+		}
+		
 		return "DicPercentage";
-	}	
+	}			
 	
 	
 	/**

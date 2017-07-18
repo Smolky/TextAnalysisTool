@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -68,18 +70,29 @@ public class App {
 	    ;
 		
 		Option formatOption = Option.builder("f")
-				.hasArg(true)
-	            .required(false)
-	            .desc("The format output.")
-	            .longOpt("format")
-	            .build()
-		    ;		
+			.hasArg(true)
+            .required(false)
+            .desc("The format output.")
+            .longOpt("format")
+            .build()
+	    ;
+		
+		
+		Option fetchDimensionOptions = Option.builder("d")
+			.hasArg(false)
+            .required(false)
+            .desc("Outputs the hierarchy and a verbose description of the dimensions.")
+            .longOpt("dimensions")
+            .build()
+	    ;		
+	
 		
 		
 		// Add options
 		options.addOption (sourceOption);
 		options.addOption (configOption);
 		options.addOption (formatOption);
+		options.addOption (fetchDimensionOptions);
 		
 		
 		// Convert the parameters to options
@@ -139,8 +152,26 @@ public class App {
 		}
 		
 		
+		// Output information about the dimensions
+		if (cmd.hasOption ("d")) {
+			for (DimensionInterface dimension : dimensions) {
+				printVerboseKeys (0, dimension);
+			}
+			return;
+		}
+		
+		
+		
 		// Reference the folder
 		File folder = new File (source);
+		
+		
+		// Get files
+		File[] files = folder.listFiles();
+		
+		
+		// Order files based on the modified date
+		Arrays.sort (files, (a, b) -> a.getName().compareTo(b.getName()));
 		
 		
 		// Print keys
@@ -151,7 +182,7 @@ public class App {
 		
 		
 		// Process the files
-		for (File file : folder.listFiles()) {
+		for (File file : files) {
 			
 			// Exclude dirs
 			if ( ! file.isFile()) {
@@ -211,7 +242,46 @@ public class App {
 				printKeys (level + 1, subdimension);
 			}
 		}
-	}	
+	}
+	
+	
+	/**
+	 * printVerboseKeys
+	 * 
+	 * This function helps to print the hierarchy of the dimensions
+	 * with proper indentation level
+	 * 
+	 * @param level
+	 * @param dimension
+	 */
+	public void printVerboseKeys (int level, DimensionInterface dimension) {
+		
+		// Create indentation
+		String indent = new String (new char[level * 4]).replace('\0', ' ');
+		
+		
+		// Print!
+		System.out.print (indent + dimension.getDimensionKey () + " [" + dimension.getClass ().getSimpleName () + "]");
+		
+		if (dimension instanceof CompositeDimension) {
+			System.out.print (" [" + ((CompositeDimension) dimension).getStrategy ().getClass ().getSimpleName ()  + "]");
+		}
+		
+			
+		if (dimension.getDescription () != null) {
+			System.out.println (" [" + dimension.getDescription () + "]");
+		} else {
+			System.out.println ("");
+		}
+		
+		
+		if (dimension instanceof CompositeDimension) {
+			for (DimensionInterface subdimension : (CompositeDimension) dimension) {
+				printVerboseKeys (level + 1, subdimension);
+			}
+		}
+	}
+	
 	
 	/**
 	 * printStats

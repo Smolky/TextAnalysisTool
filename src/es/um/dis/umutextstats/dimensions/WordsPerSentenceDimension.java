@@ -21,7 +21,7 @@ public class WordsPerSentenceDimension extends BaseDimension {
 	 * @override
 	 */
 	public String getDimensionKey () {
-		return "WPS";
+		return "wps";
 	}
 	
 	
@@ -45,7 +45,6 @@ public class WordsPerSentenceDimension extends BaseDimension {
 		// Decimal format
 		BigDecimal bd = new BigDecimal (words / sentences);
 		bd = bd.setScale (5, RoundingMode.HALF_UP);
-		
 		
 		
 		// Return the average value

@@ -24,6 +24,16 @@ public interface DimensionInterface {
 	
 	
 	/**
+	 * getDimensionKey
+	 * 
+	 * Returns a dimension key for identification
+	 * 
+	 * @return String
+	 */
+	public String getDescription ();	
+	
+	
+	/**
 	 * setDimensionKey
 	 * 
 	 * Allows to set a custom key
@@ -31,6 +41,15 @@ public interface DimensionInterface {
 	 * @param key
 	 */
 	public DimensionInterface setDimensionKey (String key);	
+	
+	
+	/**
+	 * setDescription
+	 * 
+	 * @param description
+	 * @return
+	 */
+	public DimensionInterface setDescription (String description) ;
 	
 	
 	/**

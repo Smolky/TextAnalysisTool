@@ -24,6 +24,10 @@ public abstract class BaseDimension implements DimensionInterface {
 	protected double result = -1;
 	
 	
+	/** String description */
+	protected String description = "";
+	
+	
 	/**
 	 * BaseDimension
 	 * 
@@ -56,6 +60,16 @@ public abstract class BaseDimension implements DimensionInterface {
 	
 	
 	/**
+	 * getDescription
+	 * 
+	 * @return String
+	 */
+	public String getDescription () {
+		return this.description;
+	}	
+	
+	
+	/**
 	 * setDimensionKey
 	 * 
 	 * @return String
@@ -64,6 +78,17 @@ public abstract class BaseDimension implements DimensionInterface {
 		this.key = key;
 		return this;
 	}
+	
+	
+	/**
+	 * setDescription
+	 * 
+	 * @return String
+	 */
+	public DimensionInterface setDescription (String description) {
+		this.description = description;
+		return this;
+	}	
 	
 	
 	
