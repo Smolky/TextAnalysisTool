@@ -1,5 +1,7 @@
 package es.um.dis.umutextstats.dimensions;
 
+import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
+
 /**
  * PercentageWordsCapturedFromDictionary
  * 
@@ -31,8 +33,8 @@ public class PercentageWordsCapturedFromDictionary extends MatchingRegularExpres
 		
 		// GEt words
 		double matching_words = super.subprocess();
-		double total_words = this.dictionary.getWords ().size ();
-		
+		double total_words = ExtractWordsFromString.getWords(this.getInput ()).length;
+
 		
 		// Check empty dirtionaries
 		if (total_words == 0) {
