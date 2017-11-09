@@ -1,11 +1,5 @@
 package es.um.dis.umutextstats.dimensions;
 
-import java.util.HashSet;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import es.um.dis.umutextstats.dictionaries.Dictionary;
-
 
 /**
  * MatchingWordsFromDictionary

@@ -9,7 +9,9 @@ package es.um.dis.umutextstats.helpers;
 public final class ExtractSentencesFromString {
 
 	public static String[] getSentences (String input) {
-		return input.split("[!?.:]+");
+		String clone = input;
+		
+		return input.split("[!?:]|\\.(?!\\d):+");
 	}
 	
 }

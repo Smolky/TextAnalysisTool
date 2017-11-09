@@ -17,16 +17,6 @@ import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
 public class WordsPerSentenceDimension extends BaseDimension {
 	
 	/**
-	 * getDimensionKey
-	 *
-	 * @override
-	 */
-	public String getDimensionKey () {
-		return "wps";
-	}
-	
-	
-	/**
 	 * subprocess
 	 */
 	public double subprocess () {

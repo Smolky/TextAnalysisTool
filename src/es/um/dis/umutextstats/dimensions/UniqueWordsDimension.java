@@ -16,15 +16,6 @@ import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
  */
 public class UniqueWordsDimension extends BaseDimension {
 	
-	/**
-	 * getDimensionKey
-	 *
-	 * @override
-	 */
-	public String getDimensionKey () {
-		return "Unique";
-	}	
-	
 	
 	/**
 	 * subprocess

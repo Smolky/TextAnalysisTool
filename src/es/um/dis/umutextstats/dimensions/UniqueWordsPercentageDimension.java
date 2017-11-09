@@ -19,16 +19,6 @@ import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
 public class UniqueWordsPercentageDimension extends UniqueWordsDimension {
 	
 	/**
-	 * getDimensionKey
-	 *
-	 * @override
-	 */
-	public String getDimensionKey () {
-		return "UniquePercentage";
-	}	
-	
-	
-	/**
 	 * subprocess
 	 */
 	public double subprocess () {

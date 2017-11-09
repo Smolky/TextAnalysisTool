@@ -15,16 +15,6 @@ import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
 public class WordCountDimension extends BaseDimension {
 	
 	/**
-	 * getDimensionKey
-	 *
-	 * @override
-	 */
-	public String getDimensionKey () {
-		return "wc";
-	}
-	
-
-	/**
 	 * process
 	 */
 	public double subprocess () {

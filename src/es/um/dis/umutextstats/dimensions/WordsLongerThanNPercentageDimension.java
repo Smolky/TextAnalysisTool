@@ -15,7 +15,6 @@ import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
  * @author José Antonio García Díaz
  */
 public class WordsLongerThanNPercentageDimension extends WordsLongerThanNDimension {
-
 	
 	/**
 	 * subprocess

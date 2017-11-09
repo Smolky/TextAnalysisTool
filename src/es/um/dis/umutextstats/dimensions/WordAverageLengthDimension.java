@@ -14,16 +14,6 @@ import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
 public class WordAverageLengthDimension extends BaseDimension {
 	
 	/**
-	 * getDimensionKey
-	 *
-	 * @override
-	 */
-	public String getDimensionKey () {
-		return "w-avg";
-	}
-	
-	
-	/**
 	 * subprocess
 	 */
 	public double subprocess () {

@@ -15,21 +15,6 @@ import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
 public class PercentageWordsCapturedFromDictionary extends MatchingRegularExpressionsFromDictionary {
 	
 	/**
-	 * getDimensionKey
-	 *
-	 * @override
-	 */
-	public String getDimensionKey () {
-		
-		if (this.key != null) {
-			return this.key;
-		}
-		
-		return "DicPercentage";
-	}			
-	
-	
-	/**
 	 * subprocess
 	 */
 	public double subprocess () {
