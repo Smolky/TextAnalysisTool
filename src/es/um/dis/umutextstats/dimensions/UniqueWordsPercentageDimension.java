@@ -2,19 +2,21 @@ package es.um.dis.umutextstats.dimensions;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
 
-
-import es.um.dis.umutextstats.helpers.ExtractSentencesFromString;
 import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
 
 /**
- * WordsPerSentenceDimension
+ * UniqueWordsPercentageDimension
+ *
+ * This dimension counts the % of different words
+ * the text.
  * 
  * @author José Antonio García Díaz
  * 
  * @package TextAnalysis
  */
-public class WordsPerSentenceDimension extends BaseDimension {
+public class UniqueWordsPercentageDimension extends UniqueWordsDimension {
 	
 	/**
 	 * getDimensionKey
@@ -22,8 +24,8 @@ public class WordsPerSentenceDimension extends BaseDimension {
 	 * @override
 	 */
 	public String getDimensionKey () {
-		return "wps";
-	}
+		return "UniquePercentage";
+	}	
 	
 	
 	/**
@@ -31,26 +33,26 @@ public class WordsPerSentenceDimension extends BaseDimension {
 	 */
 	public double subprocess () {
 		
-		// Get the number of sentences
-		double sentences = ExtractSentencesFromString.getSentences(this.getInput ()).length; 
+		// Check if results are empty
+		double result = super.subprocess();
 		
 		
-		// Get the number of words
+		// Get the number of words 
 		double words = ExtractWordsFromString.getWords(this.getInput ()).length;
 		
 		
 		// Avoid divide by zero
-		if (sentences == 0) {
+		if (words == 0) {
 			return 0;
 		}
 		
+		
 		// Decimal format
-		BigDecimal bd = new BigDecimal (words / sentences);
+		BigDecimal bd = new BigDecimal (100 * result / words);
 		bd = bd.setScale (2, RoundingMode.HALF_UP);
 		
 		
 		// Return the average value
-		return bd.doubleValue();
-				
+		return bd.doubleValue();		
 	}
 }

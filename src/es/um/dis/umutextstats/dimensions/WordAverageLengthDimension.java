@@ -2,19 +2,16 @@ package es.um.dis.umutextstats.dimensions;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
-
-import es.um.dis.umutextstats.helpers.ExtractSentencesFromString;
 import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
 
 /**
- * WordsPerSentenceDimension
+ * WordsAverageLengthDimension
  * 
  * @author José Antonio García Díaz
  * 
  * @package TextAnalysis
  */
-public class WordsPerSentenceDimension extends BaseDimension {
+public class WordAverageLengthDimension extends BaseDimension {
 	
 	/**
 	 * getDimensionKey
@@ -22,7 +19,7 @@ public class WordsPerSentenceDimension extends BaseDimension {
 	 * @override
 	 */
 	public String getDimensionKey () {
-		return "wps";
+		return "w-avg";
 	}
 	
 	
@@ -31,26 +28,33 @@ public class WordsPerSentenceDimension extends BaseDimension {
 	 */
 	public double subprocess () {
 		
-		// Get the number of sentences
-		double sentences = ExtractSentencesFromString.getSentences(this.getInput ()).length; 
+		// Store the result
+		double total_words_length = 0;
 		
 		
-		// Get the number of words
+		// Get the number of words 
 		double words = ExtractWordsFromString.getWords(this.getInput ()).length;
 		
 		
 		// Avoid divide by zero
-		if (sentences == 0) {
+		if (words == 0) {
 			return 0;
-		}
+		}		
 		
-		// Decimal format
-		BigDecimal bd = new BigDecimal (words / sentences);
+		
+		// Get total words length
+		for (String word : ExtractWordsFromString.getWords (this.getInput ())) {
+			total_words_length = total_words_length + word.length();
+		};
+		
+		
+		// Check data
+		BigDecimal bd = new BigDecimal (total_words_length / words);
 		bd = bd.setScale (2, RoundingMode.HALF_UP);
 		
 		
 		// Return the average value
-		return bd.doubleValue();
-				
+		return bd.doubleValue();		
+		
 	}
 }

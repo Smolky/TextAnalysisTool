@@ -17,11 +17,15 @@ import es.um.dis.umutextstats.compositestrategies.CompositeStrategyInterface;
 import es.um.dis.umutextstats.compositestrategies.CompositeStrategySum;
 import es.um.dis.umutextstats.dictionaries.Dictionary;
 import es.um.dis.umutextstats.dimensions.CharacterCountDimension;
+import es.um.dis.umutextstats.dimensions.CharacterPercentageDimension;
 import es.um.dis.umutextstats.dimensions.CompositeDimension;
 import es.um.dis.umutextstats.dimensions.DimensionInterface;
 import es.um.dis.umutextstats.dimensions.MatchingRegularExpressionsFromDictionary;
 import es.um.dis.umutextstats.dimensions.PatternDimension;
+import es.um.dis.umutextstats.dimensions.WordsEqualToNDimension;
+import es.um.dis.umutextstats.dimensions.WordsEqualToNPercentageDimension;
 import es.um.dis.umutextstats.dimensions.WordsLongerThanNDimension;
+import es.um.dis.umutextstats.dimensions.WordsLongerThanNPercentageDimension;
 
 
 /**
@@ -406,11 +410,27 @@ public class ConfigurationLoader {
 	    		((WordsLongerThanNDimension) newDimension).setLength (Integer.valueOf(length));	 
 	    	}
 	    	
+	    	if (length != null && newDimension instanceof WordsLongerThanNPercentageDimension) {
+	    		((WordsLongerThanNPercentageDimension) newDimension).setLength (Integer.valueOf(length));	 
+	    	}
+	    	
+	    	if (length != null && newDimension instanceof WordsEqualToNDimension) {
+	    		((WordsEqualToNDimension) newDimension).setLength (Integer.valueOf(length));	 
+	    	}
+	    	
+	    	if (length != null && newDimension instanceof WordsEqualToNPercentageDimension) {
+	    		((WordsEqualToNPercentageDimension) newDimension).setLength (Integer.valueOf(length));	 
+	    	}
+	    	
 	    	
 	    	// Assign character
 	    	if (character != null && newDimension instanceof CharacterCountDimension) {
 	    		((CharacterCountDimension) newDimension).setChar (character);	 
-	    	}	    	
+	    	}
+	    	
+	    	if (character != null && newDimension instanceof CharacterPercentageDimension) {
+	    		((CharacterPercentageDimension) newDimension).setChar (character);	 
+	    	}		    	
 	    	
 	    	
 	    	// Assign pattern

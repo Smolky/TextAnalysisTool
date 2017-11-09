@@ -1,5 +1,8 @@
 package es.um.dis.umutextstats.dimensions;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
 
 /**
@@ -36,14 +39,20 @@ public class PercentageWordsCapturedFromDictionary extends MatchingRegularExpres
 		double total_words = ExtractWordsFromString.getWords(this.getInput ()).length;
 
 		
-		// Check empty dirtionaries
+		// Avoid divide by zero
 		if (total_words == 0) {
 			return 0;
 		}
 		
 		
-		// Return 
-		return matching_words / total_words;
+		// Calculate percentage
+		BigDecimal bd = new BigDecimal (100 * matching_words / total_words);
+		bd = bd.setScale (2, RoundingMode.HALF_UP);
+		
+		
+		// Return the average value
+		return bd.doubleValue();			
+
 		
 	}	
 	

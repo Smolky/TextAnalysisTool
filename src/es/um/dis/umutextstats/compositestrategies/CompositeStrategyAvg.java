@@ -1,5 +1,7 @@
 package es.um.dis.umutextstats.compositestrategies;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import es.um.dis.umutextstats.dimensions.DimensionInterface;
@@ -26,6 +28,14 @@ public class CompositeStrategyAvg implements CompositeStrategyInterface {
 			result += dimension.process ();
 		}
 		
-		return result / dimensions.size ();
+		
+		// Calculate percentage
+		BigDecimal bd = new BigDecimal (100 * result / dimensions.size ());
+		bd = bd.setScale (2, RoundingMode.HALF_UP);
+		
+		
+		// Return the average value
+		return bd.doubleValue();			
+		
 	}
 }
