@@ -73,6 +73,7 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 		
 		// Init vars
 		double result = 0;
+		int direction = 1;
 		HashSet<String> words;
 		
 		
@@ -102,12 +103,23 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 		// Checking complex words
 		for (String word : words) {
 			
+			String _word;
+			if (word.startsWith ("NEG:")) {
+				_word = word.substring(4);
+				direction = -1;
+			} else {
+				_word = word;
+				direction = 1;
+			}
+			
 			// Matches?
-			Pattern pattern = Pattern.compile("\\b" + word + "\\b");
+			Pattern pattern = Pattern.compile("\\b" + _word + "\\b", Pattern.UNICODE_CHARACTER_CLASS);
 			Matcher matcher = pattern.matcher(this.getInput ());
 			
+			
+			
 			while (matcher.find()) {
-				result++;
+				result = result + direction;
 			}
 		}
 		
