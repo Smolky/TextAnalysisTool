@@ -22,6 +22,7 @@ import es.um.dis.umutextstats.dimensions.CompositeDimension;
 import es.um.dis.umutextstats.dimensions.DimensionInterface;
 import es.um.dis.umutextstats.dimensions.MatchingRegularExpressionsFromDictionary;
 import es.um.dis.umutextstats.dimensions.PatternDimension;
+import es.um.dis.umutextstats.dimensions.PatternPercentageDimension;
 import es.um.dis.umutextstats.dimensions.WordsEqualToNDimension;
 import es.um.dis.umutextstats.dimensions.WordsEqualToNPercentageDimension;
 import es.um.dis.umutextstats.dimensions.WordsLongerThanNDimension;
@@ -436,7 +437,12 @@ public class ConfigurationLoader {
 	    	// Assign pattern
 	    	if (pattern != null && newDimension instanceof PatternDimension) {
 	    		((PatternDimension) newDimension).setPattern (pattern);	 
+	    	}
+	    	
+	    	if (pattern != null && newDimension instanceof PatternPercentageDimension) {
+	    		((PatternPercentageDimension) newDimension).setPattern (pattern);	 
 	    	}	 	    	
+	    	
 	    	
 	    	
 	    	// Load custom dictionary

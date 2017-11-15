@@ -30,7 +30,7 @@ public class CompositeStrategyAvg implements CompositeStrategyInterface {
 		
 		
 		// Calculate percentage
-		BigDecimal bd = new BigDecimal (100 * result / dimensions.size ());
+		BigDecimal bd = new BigDecimal (result / dimensions.size ());
 		bd = bd.setScale (2, RoundingMode.HALF_UP);
 		
 		

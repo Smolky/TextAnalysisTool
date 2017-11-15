@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import es.um.dis.umutextstats.dictionaries.Dictionary;
+import es.um.dis.umutextstats.helpers.ExtractWordsFromString;
 
 
 /**
@@ -104,6 +105,10 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 		for (String word : words) {
 			
 			String _word;
+			int _how_many_words;
+			
+			
+			// NEG:expressions reduces the result
 			if (word.startsWith ("NEG:")) {
 				_word = word.substring(4);
 				direction = -1;
@@ -112,14 +117,19 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 				direction = 1;
 			}
 			
+			
+			// How many words the regular expression has
+			_how_many_words = ExtractWordsFromString.getWords(_word).length;
+			
+			
 			// Matches?
 			Pattern pattern = Pattern.compile("\\b" + _word + "\\b", Pattern.UNICODE_CHARACTER_CLASS);
 			Matcher matcher = pattern.matcher(this.getInput ());
 			
 			
-			
+			// Count results
 			while (matcher.find()) {
-				result = result + direction;
+				result = result + (direction * _how_many_words);
 			}
 		}
 		

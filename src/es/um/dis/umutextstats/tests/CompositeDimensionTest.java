@@ -32,6 +32,8 @@ public class CompositeDimensionTest {
 		asset.setAsset ("Lorem. Lorem Ipsum");
 		
 		
+		
+		
 		// Sample patterns
 		assertTrue (dimension.setInput (asset).setStrategy (new CompositeStrategySum ()).process () == Double.sum(3, (3.0 / 2.0)));
 		assertTrue (dimension.setInput (asset).setStrategy (new CompositeStrategyMax ()).process () == Double.max(3, (3.0 / 2.0)));
