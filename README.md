@@ -27,7 +27,7 @@ word-count,sentences,words-per-sentence
 19,2,9.5
 ```
 
-## Instalation
+## Installation
 ### Prerequisites
 This project has been developed in Java. Requires Java 1.8 to work
 
