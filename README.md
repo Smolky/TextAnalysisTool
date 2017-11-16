@@ -121,7 +121,7 @@ The application provides built-in dimensions to match the regular cases and some
   <class>PatternDimension</class>
   <pattern>\b\+?[1-9]\d*\b</pattern>
 </dimension>
-
+```
 
 ## Contributing
 1. Fork it (<https://github.com/smolky/textanalysistool>)
