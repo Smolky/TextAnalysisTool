@@ -1,5 +1,6 @@
 package es.um.dis.umutextstats.dimensions;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,6 +30,15 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 	protected Dictionary dictionary;
 	
 	
+	/** ArrayList<Pattern> patterns */
+	protected ArrayList<Pattern> patterns = new ArrayList<Pattern>();
+	
+	
+	/** ArrayList<Integer> int*/
+	protected ArrayList<Integer> directions = new ArrayList<Integer>();
+	
+	
+	
 	/**
 	 * setDictionary
 	 * 
@@ -36,7 +46,14 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 	 * @return
 	 */
 	public DimensionInterface setDictionary (Dictionary dictionary) {
+		
+		// Reset
+		this.patterns = new ArrayList<Pattern>();
+
+		
+		// Set dictionary
 		this.dictionary = dictionary;
+		
 		return this;
 	}
 	
@@ -48,7 +65,35 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 	 */
 	public boolean hasDictionary () {
 		return this.dictionary != null;
-	}	
+	}
+	
+	
+	
+	/**
+	 * getPatterns
+	 * 
+	 * @return ArrayList<Pattern>
+	 */
+	public ArrayList<Pattern> getPatterns () {
+		
+		// Cache!
+		if (this.patterns.size() == 0) {
+			for (String word : this.dictionary.getWords ()) {
+				
+				if (word.startsWith ("NEG:")) {
+					this.directions.add(-1);
+				} else {
+					this.directions.add(1);
+				}
+				
+				this.patterns.add (
+					Pattern.compile("\\b" + word + "\\b", Pattern.UNICODE_CHARACTER_CLASS)
+				);
+			}
+		}
+		
+		return this.patterns;
+	}		
 	
 	
 	/**
@@ -74,12 +119,9 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 		
 		// Init vars
 		double result = 0;
-		int direction = 1;
-		HashSet<String> words;
-		
-		
-		// Create a set with the words to use 
-		words = new HashSet<String>();
+		int _how_many_words;
+		int direction;
+		String input = this.getInput ();
 		
 		
 		// If the dictionary is empty, do nothing
@@ -88,53 +130,28 @@ public class MatchingRegularExpressionsFromDictionary extends BaseDimension {
 		}
 		
 		
-		// Extract words from the dictionary
-		for (String word : this.dictionary.getWords ()) {
-			
-			// To lower case
-			String lowered_word = word.toLowerCase();
-			
-			
-			// Add
-			words.add(lowered_word);
-			
-		}
-		
-		
 		// Checking complex words
-		for (String word : words) {
+		int index = 0;
+		for (Pattern pattern : this.getPatterns ()) {
 			
-			String _word;
-			int _how_many_words;
-			
-			
-			// NEG:expressions reduces the result
-			if (word.startsWith ("NEG:")) {
-				_word = word.substring(4);
-				direction = -1;
-			} else {
-				_word = word;
-				direction = 1;
-			}
-			
-			
-			// How many words the regular expression has
-			_how_many_words = ExtractWordsFromString.getWords(_word).length;
+			// Get direction
+			direction = this.directions.get(index);
 			
 			
 			// Matches?
-			Pattern pattern = Pattern.compile("\\b" + _word + "\\b", Pattern.UNICODE_CHARACTER_CLASS);
-			Matcher matcher = pattern.matcher(this.getInput ());
-			
+			Matcher matcher = pattern.matcher(input);
 			
 			// Count results
 			while (matcher.find()) {
-				result = result + (direction * _how_many_words);
+				result += (direction * 1);
 			}
+
+			
+			index++;
 		}
 		
 
-		    
+		// Return result
 		return result;
 	}
 }

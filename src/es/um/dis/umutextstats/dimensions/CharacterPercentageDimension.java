@@ -21,7 +21,7 @@ public class CharacterPercentageDimension extends CharacterCountDimension {
 		
 		// Init vars
 		double result = super.subprocess();
-		double total_length = this.getInput ().length(); 
+		double total_length = this.getInputLength ();
 		
 		
 		// Avoid divide by zero

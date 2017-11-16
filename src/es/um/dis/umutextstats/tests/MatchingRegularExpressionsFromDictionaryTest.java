@@ -28,7 +28,6 @@ public class MatchingRegularExpressionsFromDictionaryTest {
 			.add ("ipsum")
 		;
 		
-		
 		// Create the class to be tested
 		MatchingRegularExpressionsFromDictionary dimension = new MatchingRegularExpressionsFromDictionary ();
 		dimension.setDictionary(dictionary);
@@ -41,13 +40,10 @@ public class MatchingRegularExpressionsFromDictionaryTest {
 		assertTrue (dimension.setInput ("lorem lorem").process () == 2.0);
 		assertTrue (dimension.setInput ("loremlorem").process () == 0);
 		
-		
 		// Complex words
 		dictionary.clear ();
-		dictionary
-			.clear ()
-			.add ("as part of")
-		;
+		dictionary.add ("as part of");
+		dimension.setDictionary(dictionary);
 		
 		assertTrue (dimension.setInput ("as").process () == 0);
 		assertTrue (dimension.setInput ("as part of").process () == 1);
@@ -62,10 +58,8 @@ public class MatchingRegularExpressionsFromDictionaryTest {
 		// Regular expressions
 		// Complex words
 		dictionary.clear ();
-		dictionary
-			.clear ()
-			.add ("lorem.*")
-		;
+		dictionary.add ("lorem.*");
+		dimension.setDictionary(dictionary);
 		
 		assertTrue (dimension.setInput ("lorem").process () == 1);
 		assertTrue (dimension.setInput ("lorema").process () == 1);

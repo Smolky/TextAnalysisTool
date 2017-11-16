@@ -28,6 +28,10 @@ public abstract class BaseDimension implements DimensionInterface {
 	protected String description = "";
 	
 	
+	/** int input_length */
+	protected int length = -1;
+	
+	
 	/**
 	 * BaseDimension
 	 * 
@@ -39,11 +43,26 @@ public abstract class BaseDimension implements DimensionInterface {
 	
 	
 	/**
+	 * getInputLength
+	 * 
+	 * Allows to cache the input length
+	 */	
+	public int getInputLength () {
+		if (this.length == -1) {
+			this.length = this.getInput ().length();			
+		}
+		return this.length;
+		
+	}
+	
+	
+	/**
 	 * reset
 	 * 
 	 * @return DimensionInterface
 	 */
 	public DimensionInterface reset () {
+		this.length = -1;
 		this.result = -1;
 		return this;
 	}	

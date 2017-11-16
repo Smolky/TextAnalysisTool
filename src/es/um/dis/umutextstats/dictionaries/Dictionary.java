@@ -84,7 +84,16 @@ public class Dictionary {
 		
 		// REtrieve info
 		try {
+			
+			// Get the words
 			this.words = (ArrayList<String>) filereader.getLines(file);
+			
+			
+			// Apply lowercase
+			for (String word : this.words) {
+				word = word.toLowerCase();	
+			}
+			
 			
 		// Something happened
 		} catch (Exception e) {

@@ -57,7 +57,7 @@ public class App {
 				.hasArg(true)
 	            .required(false)
 	            .desc("The path to the config file.")
-	            .longOpt("source")
+	            .longOpt("config")
 	            .build()
 		;				
 		
@@ -76,7 +76,6 @@ public class App {
             .longOpt("format")
             .build()
 	    ;
-		
 		
 		Option fetchDimensionOptions = Option.builder("d")
 			.hasArg(false)

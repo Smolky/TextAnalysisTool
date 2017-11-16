@@ -4,6 +4,8 @@ package es.um.dis.umutextstats.dimensions;
 /**
  * LengthDimension
  * 
+ * This dimension returns the length of the input
+ * 
  * @author José Antonio García Díaz
  * 
  * @package TextAnalysis
@@ -11,19 +13,11 @@ package es.um.dis.umutextstats.dimensions;
 public class LengthDimension extends BaseDimension {
 	
 	/**
-	 * getDimensionKey
-	 *
+	 * subprocess
+	 * 
 	 * @override
 	 */
-	public String getDimensionKey () {
-		return "length";
-	}
-	
-	
-	/**
-	 * subprocess
-	 */
 	public double subprocess () {
-		return this.getInput ().length(); 
+		return this.getInputLength ();
 	}
 }
